@@ -58,3 +58,6 @@ $(window).resize(function() {
         $('.chat-groups').addClass('d-block');
     }
 });
+
+const toastBootstrap = bootstrap.Toast.getOrCreateInstance($(".toast"));
+toastBootstrap.show();

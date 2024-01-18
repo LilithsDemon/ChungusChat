@@ -75,8 +75,8 @@ $_SESSION['username'] = "Susername";
             <div class="full_page_content d-flex">
                 <div class="chat-groups list-group px-2 pt-4 pd-4 d-block d-flex">
                     <a href="#" class="chat-group list-group-item list-group-item-action active d-flex" aria-current="true">
-                        <div class="d-flex w-25 justify-content-between">
-                            <img class="profile" src="https://proficon.stablenetwork.uk/api/initials/lt.svg"
+                    <div class="d-flex w-25 justify-content-center align-items-center">
+                            <img class="profile rounded-circle h-100"src="https://proficon.stablenetwork.uk/api/initials/lt.svg"
                                 alt="Initials Profile Icon" />
                         </div>
                         <div class="w-75 justify-content-center d-flex flex-column">
@@ -88,8 +88,8 @@ $_SESSION['username'] = "Susername";
                         </div>
                     </a>
                     <a href="#" class="chat-group list-group-item list-group-item-action d-flex" aria-current="true">
-                        <div class="d-flex w-25 justify-content-between">
-                            <img class="profile" src="https://proficon.stablenetwork.uk/api/initials/pt.svg"
+                        <div class="d-flex w-25 justify-content-center align-items-center">
+                            <img class="profile rounded-circle h-100" src="https://proficon.stablenetwork.uk/api/initials/pt.svg"
                                 alt="Initials Profile Icon" />
                         </div>
                         <div class="w-75 justify-content-center d-flex flex-column">
@@ -101,8 +101,8 @@ $_SESSION['username'] = "Susername";
                         </div>
                     </a>
                     <a href="#" class="chat-group list-group-item list-group-item-action d-flex" aria-current="true">
-                        <div class="d-flex w-25 justify-content-between">
-                            <img class="profile" src="https://proficon.stablenetwork.uk/api/initials/jk.svg"
+                        <div class="d-flex w-25 justify-content-center align-items-center">
+                            <img class="profile rounded-circle h-100" src="https://proficon.stablenetwork.uk/api/initials/jk.svg"
                                 alt="Initials Profile Icon" />
                         </div>
                         <div class="w-75 justify-content-center d-flex flex-column">
@@ -114,8 +114,8 @@ $_SESSION['username'] = "Susername";
                         </div>
                     </a>
                     <a href="#" class="chat-group list-group-item list-group-item-action d-flex" aria-current="true">
-                        <div class="d-flex w-25 justify-content-between">
-                            <img class="profile" src="https://proficon.stablenetwork.uk/api/initials/jc.svg"
+                        <div class="d-flex w-25 justify-content-center align-items-center">
+                            <img class="profile rounded-circle h-100" src="https://proficon.stablenetwork.uk/api/initials/jc.svg"
                                 alt="Initials Profile Icon" />
                         </div>
                         <div class="w-75 justify-content-center d-flex flex-column">
@@ -171,15 +171,56 @@ $_SESSION['username'] = "Susername";
             </div>
         </div>
 
+        <div class="toast-container position-fixed bottom-0 end-0 p-3">
+            <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="toast-header">
+                    <img src="https://proficon.stablenetwork.uk/api/initials/pt.svg" height="25px" width="25px" class="rounded me-2" alt="...">
+                    <strong class="me-auto">Username</strong>
+                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+                <div class="toast-body">
+                    This is a preview of the message you have just been sent 
+                </div>
+            </div>
+        </div>
+
         <div class="offcanvas offcanvas-end text-bg-dark" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1"
             id="offCanvasProfile" aria-labelledby="offcanvasRightLabel">
             <div class="offcanvas-header">
-                <h5 class="offcanvas-title" id="offcanvasRightLabel">Offcanvas right</h5>
+                <h5 class="offcanvas-title" id="offcanvasRightLabel">Profile</h5>
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"
                     aria-label="Close"></button>
             </div>
-            <div class="offcanvas-body">
-                Profile
+            <div class="offcanvas-body d-flex flex-column">
+                <div class="profile_info_top d-flex flex-column align-items-center justify-content-center">
+                    <img src="https://proficon.stablenetwork.uk/api/initials/lt.svg" class="rounded-circle" height="100px" width="100px">
+                    <h4 class="pt-2">Username</h4>
+                </div>
+                <div class="about_section pt-2 d-flex flex-column">
+                    <h4 class="profile_section_title">About</h4>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illo maxime itaque odio eaque ea laboriosam est libero, rerum error unde tempore soluta natus impedit, ratione animi distinctio neque aliquid molestias.</p>
+                </div>
+                <div class="website_section pt-2 d-flex flex-column">
+                    <h4 class="profile_section_title">Website</h4>
+                    <a href="#"><p>https://chungus.lilithtech.dev</p></a>
+                </div>
+                <div class="social_section pt-2 d-flex flex-column">
+                    <h4 class="profile_section_title">Social Media Accounts</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Settings</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Modal body text goes here.</p>
+                </div>
             </div>
         </div>
     </div>

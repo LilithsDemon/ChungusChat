@@ -52,13 +52,6 @@ hr.h-color {
     z-index: 0;
 }
 
-.profile {
-    border-radius: 100%;
-    padding: 10%;
-    max-height: 800px;
-    max-width: 80px;
-}
-
 .profile_top {
     column-gap: 10px;
     font-size: 22px;
@@ -73,6 +66,12 @@ hr.h-color {
 .hide
 {
     display: none;
+}
+
+.chat-groups .active
+{
+    background-color: #DC3545;
+    border-color: #DC3545;
 }
 
 @media (min-width: 1100px)
