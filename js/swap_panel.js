@@ -61,3 +61,34 @@ $(window).resize(function() {
 
 const toastBootstrap = bootstrap.Toast.getOrCreateInstance($(".toast"));
 toastBootstrap.show();
+
+$('#formSendMsg').submit(function (e)
+{
+    e.preventDefault();
+    $.ajax({
+        url: 'send.php',
+        method: 'POST',
+        data: $('#formSendMsg').serialize(),
+        success: function (data) {
+            $('input').val('');
+        },
+        error: function(err)
+        {
+            console.log(err);
+        }
+    });
+});
+
+function FetchMsgs()
+{
+    $.ajax({
+        url: 'fetch.php',
+        type: 'GET',
+        success: function(data)
+        {
+            $('#chatMessages').html(data);
+        }
+    });
+}
+
+setInterval(FetchMsgs, 1000);

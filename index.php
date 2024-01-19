@@ -7,7 +7,7 @@ $_SESSION['username'] = "Susername";
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-bs-theme="dark">
 
 <head>
     <meta charset="UTF-8">
@@ -54,7 +54,7 @@ $_SESSION['username'] = "Susername";
             <hr class="h-color mx-2">
 
             <ul class="end_nav list-unstyled flex-column justify-content-end d-flex px-2">
-                <li class=""><a href="#" class="text-decoration-none px-3 py-2 d-block"><i class="fa fa-bars"></i>
+                <li class=""><a data-bs-toggle="modal" data-bs-target="#settings" href="#settings" class="text-decoration-none px-3 py-2 d-block"><i class="fa fa-bars"></i>
                         Settings</a></li>
                 <li class="profile_open"><a data-bs-toggle="offcanvas" href="#offCanvasProfile" role="button"
                         class="text-decoration-none px-3 py-2 d-block"><i class="fa fa-user"></i>
@@ -133,40 +133,17 @@ $_SESSION['username'] = "Susername";
                         <span class="small_to_chat"> <i class="chat_back_button fa-solid fa-left-long"> </i></span>
                         <h2> Profile Username</h2>
                     </div>
-                    <div id="carouselExampleIndicators" class="carousel slide">
-                        <div class="carousel-indicators">
-                            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0"
-                                class="active" aria-current="true" aria-label="Slide 1"></button>
-                            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"
-                                aria-label="Slide 2"></button>
-                            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"
-                                aria-label="Slide 3"></button>
-                        </div>
-                        <div class="carousel-inner">
-                            <div class="carousel-item active">
-                                <img src="https://i.pinimg.com/originals/c1/8c/44/c18c4491703eeb32fce74753e622b055.jpg"
-                                    class="d-block w-100" alt="...">
-                            </div>
-                            <div class="carousel-item">
-                                <img src="https://wallpapers.com/images/hd/hd-black-cat-rqpue91wz43epj50.jpg"
-                                    class="d-block w-100" alt="...">
-                            </div>
-                            <div class="carousel-item">
-                                <img src="https://preview.redd.it/black-cat-1920x1080-wallpaper-v0-wskok3z7gr7a1.jpg?auto=webp&s=6291251672cb058df76699e1ef5c6ca930d16656"
-                                    class="d-block w-100" alt="...">
-                            </div>
-                        </div>
-                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
-                            data-bs-slide="prev">
-                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Previous</span>
-                        </button>
-                        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
-                            data-bs-slide="next">
-                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Next</span>
-                        </button>
-                    </div>
+                    
+                    <ul id="chatMessages">
+                        <li>loading ... </li>
+                        
+                    </ul>
+
+                    <form id="formSendMsg">
+                        <input type="text" name="txtInput" placeholder="Enter your message..."></input>
+                        <button type="submit">Send!</button>
+                    </form>
+
                 </div>
             </div>
         </div>
@@ -211,8 +188,8 @@ $_SESSION['username'] = "Susername";
         </div>
     </div>
 
-    <div class="modal" tabindex="-1">
-        <div class="modal-dialog">
+    <div class="modal" id="settings" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">Settings</h5>
@@ -224,6 +201,7 @@ $_SESSION['username'] = "Susername";
             </div>
         </div>
     </div>
+        
 
     <script src="js/swap_panel.js"></script>
 </body>
