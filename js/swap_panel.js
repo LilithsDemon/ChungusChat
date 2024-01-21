@@ -1,3 +1,5 @@
+var userName = 0;
+
 $(".sidebar .main_list li").on('click', function () {
     $(".sidebar ul li.active").removeClass('active');
     $(this).addClass('active');
@@ -32,6 +34,7 @@ $(".chat-group").on('click', function () {
         $('.chat').addClass('d-flex');
         $('.chat').addClass('d-block');
     }
+    userName = $(this).find('.username').text();
 });
 
 $(".small_to_chat").on('click', function () {
@@ -71,6 +74,23 @@ $('#formSendMsg').submit(function (e)
         data: $('#formSendMsg').serialize(),
         success: function (data) {
             $('input').val('');
+        },
+        error: function(err)
+        {
+            console.log(err);
+        }
+    });
+});
+
+$('#chatBtns').submit(function (e)
+{
+    e.preventDefault();
+    $.ajax({
+        url: './php/open_chat.php',
+        method: 'POST',
+        data: {"Username": userName},
+        success: function (data) {
+            console.log("Worked");
         },
         error: function(err)
         {

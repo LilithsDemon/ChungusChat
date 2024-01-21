@@ -2,7 +2,20 @@
 
 session_start();
 
-$_SESSION['username'] = "Susername";
+require_once("./php/include/_connect.php");
+
+if (!isset($_SESSION['username'])) {
+    $_SESSION['username'] = "Blank";
+}
+
+if (!isset($_SESSION['auth'])) {
+    $_SESSION['auth'] = false;
+    header("Location: login.php");
+}
+
+if ($_SESSION['auth'] == false) {
+    header("Location: login.php");
+}
 
 ?>
 
@@ -54,7 +67,8 @@ $_SESSION['username'] = "Susername";
             <hr class="h-color mx-2">
 
             <ul class="end_nav list-unstyled flex-column justify-content-end d-flex px-2">
-                <li class=""><a data-bs-toggle="modal" data-bs-target="#settings" href="#settings" class="text-decoration-none px-3 py-2 d-block"><i class="fa fa-bars"></i>
+                <li class=""><a data-bs-toggle="modal" data-bs-target="#settings" href="#settings"
+                        class="text-decoration-none px-3 py-2 d-block"><i class="fa fa-bars"></i>
                         Settings</a></li>
                 <li class="profile_open"><a data-bs-toggle="offcanvas" href="#offCanvasProfile" role="button"
                         class="text-decoration-none px-3 py-2 d-block"><i class="fa fa-user"></i>
@@ -73,72 +87,68 @@ $_SESSION['username'] = "Susername";
                 </div>
             </nav>
             <div class="full_page_content d-flex">
-                <div class="chat-groups list-group px-2 pt-4 pd-4 d-block d-flex">
-                    <a href="#" class="chat-group list-group-item list-group-item-action active d-flex" aria-current="true">
-                    <div class="d-flex w-25 justify-content-center align-items-center">
-                            <img class="profile rounded-circle h-100"src="https://proficon.stablenetwork.uk/api/initials/lt.svg"
-                                alt="Initials Profile Icon" />
-                        </div>
-                        <div class="w-75 justify-content-center d-flex flex-column">
-                            <div class="d-flex w-100 justify-content-between">
-                                <h5 class="mb-1">Username</h5>
-                                <small>3 days ago</small>
-                            </div>
-                            <p class="mb-1">Some placeholder content ...</p>
-                        </div>
-                    </a>
-                    <a href="#" class="chat-group list-group-item list-group-item-action d-flex" aria-current="true">
-                        <div class="d-flex w-25 justify-content-center align-items-center">
-                            <img class="profile rounded-circle h-100" src="https://proficon.stablenetwork.uk/api/initials/pt.svg"
-                                alt="Initials Profile Icon" />
-                        </div>
-                        <div class="w-75 justify-content-center d-flex flex-column">
-                            <div class="d-flex w-100 justify-content-between">
-                                <h5 class="mb-1">Username</h5>
-                                <small>3 days ago</small>
-                            </div>
-                            <p class="mb-1">Some placeholder content ...</p>
-                        </div>
-                    </a>
-                    <a href="#" class="chat-group list-group-item list-group-item-action d-flex" aria-current="true">
-                        <div class="d-flex w-25 justify-content-center align-items-center">
-                            <img class="profile rounded-circle h-100" src="https://proficon.stablenetwork.uk/api/initials/jk.svg"
-                                alt="Initials Profile Icon" />
-                        </div>
-                        <div class="w-75 justify-content-center d-flex flex-column">
-                            <div class="d-flex w-100 justify-content-between">
-                                <h5 class="mb-1">Username</h5>
-                                <small>3 days ago</small>
-                            </div>
-                            <p class="mb-1">Some placeholder content ...</p>
-                        </div>
-                    </a>
-                    <a href="#" class="chat-group list-group-item list-group-item-action d-flex" aria-current="true">
-                        <div class="d-flex w-25 justify-content-center align-items-center">
-                            <img class="profile rounded-circle h-100" src="https://proficon.stablenetwork.uk/api/initials/jc.svg"
-                                alt="Initials Profile Icon" />
-                        </div>
-                        <div class="w-75 justify-content-center d-flex flex-column">
-                            <div class="d-flex w-100 justify-content-between">
-                                <h5 class="mb-1">Username</h5>
-                                <small>3 days ago</small>
-                            </div>
-                            <p class="mb-1">Some placeholder content ...</p>
-                        </div>
-                    </a>
-                </div>
+                <form id="chatBtns" method="post" action="./php/open_chat.php" class="chat-groups list-group px-2 pt-4 pd-4 d-block d-flex">
+                    <?php
+                    $SQL = "SELECT * FROM `Users` WHERE`UserID` != ?;";
+
+                    $stmt = mysqli_prepare($connect, $SQL);
+                    mysqli_stmt_bind_param($stmt, "i", $_SESSION['userID']);
+                    mysqli_stmt_execute($stmt);
+
+                    $result = mysqli_stmt_get_result($stmt);
+
+                    if (mysqli_num_rows($result) > 0) {
+                        while ($USER = mysqli_fetch_assoc($result)) {
+
+                            ?>
+                            <button class="chat-group list-group-item list-group-item-action d-flex"
+                                aria-current="true">
+                                <div class="d-flex h-100 w-25 justify-content-center align-items-center">
+                                    <img class="profile rounded-circle h-100" <?php echo 'src="https://proficon.stablenetwork.uk/api/initials/' . $USER['FirstName'] . ' ' . $USER['LastName'] . '.svg"' ?> alt="Initials Profile Icon" />
+                                </div>
+                                <div class="w-75 justify-content-center d-flex flex-column">
+                                    <div class="d-flex w-100 justify-content-between">
+                                        <h5 class="mb-1 username"><?php echo $USER['Username'] ?></h5>
+                                        <small>3 days ago</small>
+                                    </div>
+                                    <p class="mb-1">Some placeholder content ...</p>
+                                </div>
+                        </button>
+                        <?
+                        }
+
+                    } else {
+                        echo "There are no other users";
+                    }
+
+                    ?>
+                </form>
 
                 <div class="chat flex-column px-3 pt-4">
                     <div class="profile_top d-flex flex-row">
                         <span class="small_to_chat"> <i class="chat_back_button fa-solid fa-left-long"> </i></span>
                         <h2> Profile Username</h2>
                     </div>
-                    
-                    <ul id="chatMessages">
-                        <li>loading ... </li>
-                        
-                    </ul>
 
+                    <ul id="chatMessages">
+                    <?php
+                        if(!isset($_SESSION['chat_userID']))
+                        {
+                    ?>
+                    <p>No chat open</p>
+                    <?php
+                        }
+                        else
+                        {
+                            ?>
+                        <li>loading ... </li>
+
+                    <?php
+                        }
+                    ?>
+
+                    </ul>
+                    
                     <form id="formSendMsg">
                         <input type="text" name="txtInput" placeholder="Enter your message..."></input>
                         <button type="submit">Send!</button>
@@ -151,12 +161,13 @@ $_SESSION['username'] = "Susername";
         <div class="toast-container position-fixed bottom-0 end-0 p-3">
             <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
                 <div class="toast-header">
-                    <img src="https://proficon.stablenetwork.uk/api/initials/pt.svg" height="25px" width="25px" class="rounded me-2" alt="...">
+                    <img src="https://proficon.stablenetwork.uk/api/initials/pt.svg" height="25px" width="25px"
+                        class="rounded me-2" alt="...">
                     <strong class="me-auto">Username</strong>
                     <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
                 </div>
                 <div class="toast-body">
-                    This is a preview of the message you have just been sent 
+                    This is a preview of the message you have just been sent
                 </div>
             </div>
         </div>
@@ -170,16 +181,26 @@ $_SESSION['username'] = "Susername";
             </div>
             <div class="offcanvas-body d-flex flex-column">
                 <div class="profile_info_top d-flex flex-column align-items-center justify-content-center">
-                    <img src="https://proficon.stablenetwork.uk/api/initials/lt.svg" class="rounded-circle" height="100px" width="100px">
-                    <h4 class="pt-2">Username</h4>
+                    <?php
+
+                    ?>
+                    <img <? echo 'src="' . 'https://proficon.stablenetwork.uk/api/initials/' . $_SESSION['user_first_name'] . ' ' . $_SESSION['user_last_name'] . '.svg' . '"' ?>
+                        class="rounded-circle" height="100px" width="100px">
+                    <h4 class="pt-2">
+                        <?php echo $_SESSION['username'] ?>
+                    </h4>
                 </div>
                 <div class="about_section pt-2 d-flex flex-column">
                     <h4 class="profile_section_title">About</h4>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illo maxime itaque odio eaque ea laboriosam est libero, rerum error unde tempore soluta natus impedit, ratione animi distinctio neque aliquid molestias.</p>
+                    <p>
+                        <?php echo $_SESSION['user_about'] ?>
+                    </p>
                 </div>
                 <div class="website_section pt-2 d-flex flex-column">
                     <h4 class="profile_section_title">Website</h4>
-                    <a href="#"><p>https://chungus.lilithtech.dev</p></a>
+                    <a href="#">
+                        <p>https://chungus.lilithtech.dev</p>
+                    </a>
                 </div>
                 <div class="social_section pt-2 d-flex flex-column">
                     <h4 class="profile_section_title">Social Media Accounts</h4>
@@ -201,7 +222,7 @@ $_SESSION['username'] = "Susername";
             </div>
         </div>
     </div>
-        
+
 
     <script src="js/swap_panel.js"></script>
 </body>
