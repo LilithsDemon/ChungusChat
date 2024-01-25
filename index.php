@@ -124,32 +124,32 @@ if ($_SESSION['auth'] == false) {
                     ?>
                 </form>
 
-                <div class="chat flex-column px-3 pt-4">
-                    <div class="profile_top d-flex flex-row">
+                <div class="chat flex-column w-100 h-100 px-3 pt-4 d-flex">
+                    <div class="profile_top d-flex h-20 flex-row">
                         <span class="small_to_chat"> <i class="chat_back_button fa-solid fa-left-long"> </i></span>
-                        <h2> Profile Username</h2>
+                        <h2 id="chat_username"> Profile Username</h2>
                     </div>
+                    <div class="messages h-80">
+                        <ul id="chatMessages">
+                        <?php
+                            if(!isset($_SESSION['chat_userID']))
+                            {
+                        ?>
+                        <p>No chat open</p>
+                        <?php
+                            }
+                            else
+                            {
+                                ?>
+                            <li>loading ... </li>
 
-                    <ul id="chatMessages">
-                    <?php
-                        if(!isset($_SESSION['chat_userID']))
-                        {
-                    ?>
-                    <p>No chat open</p>
-                    <?php
-                        }
-                        else
-                        {
-                            ?>
-                        <li>loading ... </li>
+                        <?php
+                            }
+                        ?>
 
-                    <?php
-                        }
-                    ?>
-
-                    </ul>
-                    
-                    <form id="formSendMsg">
+                        </ul>
+                    </div>
+                    <form id="formSendMsg" class="h-10">
                         <input type="text" name="txtInput" placeholder="Enter your message..."></input>
                         <button type="submit">Send!</button>
                     </form>

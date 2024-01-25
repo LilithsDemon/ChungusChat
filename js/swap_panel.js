@@ -31,6 +31,7 @@ $(".profile_open").on('click', function () {
 });
 
 $("#settings_open").on('click', function (){
+    $('.sidebar').removeClass('active');
     $('#offCanvasProfile').removeClass('show');
 })
 
@@ -100,7 +101,8 @@ $('#chatBtns').submit(function (e)
         method: 'POST',
         data: {"Username": userName},
         success: function (data) {
-            console.log("Worked");
+            FetchMsgs();
+            $('#chat_username').html(userName);
         },
         error: function(err)
         {

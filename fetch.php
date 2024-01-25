@@ -9,7 +9,7 @@ require_once("./php/include/_connect.php");
 
 
 
-$SQL = "SELECT `Message`, `TIMESTAMP`, `SenderID` FROM `Messages` WHERE (`SenderID` = ? AND `LocationID` = ?) OR (`SenderID` = ? AND `LocationID` = ?);";
+$SQL = "SELECT `Users`.`Username`, `Message`, `TIMESTAMP`, `SenderID` FROM `Messages` LEFT JOIN `Users` ON `Users`.`UserID` = `Messages`.`SenderID` WHERE (`SenderID` = ? AND `LocationID` = ?) OR (`SenderID` = ? AND `LocationID` = ?) ORDER BY `TIMESTAMP` ASC;";
 
 $stmt = mysqli_prepare($connect, $SQL);
 mysqli_stmt_bind_param($stmt, "iiii", $_SESSION['userID'], $_SESSION['chat_userID'], $_SESSION['chat_userID'], $_SESSION['userID']);
@@ -22,14 +22,31 @@ if (mysqli_num_rows($result) > 0)
     while($DATA = mysqli_fetch_assoc($result))
     if($DATA['SenderID'] != $_SESSION['userID'])
     {
-        echo "<li style='color: pink;'>" . $DATA['Message'] . " - " . $DATA['TIMESTAMP'] . "</li>";
+        ?>
+            <div class="card other mt-4 w-75">
+                <div class="card-header">
+                    <?php echo $DATA['Username'] . " | " . $DATA['TIMESTAMP'] ?>
+                </div>
+                <div class="card-body">
+                    <?php echo $DATA['Message'] ?>
+                </div>
+            </div>
+        <?php
     }
     else
     {
-        echo "<li>" . $DATA['Message'] . " - " . $DATA['TIMESTAMP'] . "</li>";
+        ?>
+            <div class="card self mt-4 d-flex w-75">
+                <div class="card-header">
+                    <?php echo $DATA['Username'] . " | " . $DATA['TIMESTAMP'] ?>
+                </div>
+                <div class="card-body">
+                    <?php echo $DATA['Message'] ?>
+                </div>
+            </div>
+        <?php
     }
     ?>
-</form>
 <?php
 } else 
 {
