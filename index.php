@@ -67,7 +67,7 @@ if ($_SESSION['auth'] == false) {
             <hr class="h-color mx-2">
 
             <ul class="end_nav list-unstyled flex-column justify-content-end d-flex px-2">
-                <li class=""><a data-bs-toggle="modal" data-bs-target="#settings" href="#settings"
+                <li class=""><a id="settings_open" data-bs-toggle="modal" data-bs-target="#settings" href="#settings"
                         class="text-decoration-none px-3 py-2 d-block"><i class="fa fa-bars"></i>
                         Settings</a></li>
                 <li class="profile_open"><a data-bs-toggle="offcanvas" href="#offCanvasProfile" role="button"

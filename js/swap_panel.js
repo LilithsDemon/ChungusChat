@@ -22,7 +22,17 @@ $(".full_page_content .list-group .list-group-item").on('click', function () {
 
 $(".profile_open").on('click', function () {
     $('.sidebar').removeClass('active');
+    $('#settings').removeClass('show');
 });
+
+$(".profile_open").on('click', function () {
+    $('.sidebar').removeClass('active');
+    $('#settings').removeClass('show');
+});
+
+$("#settings_open").on('click', function (){
+    $('#offCanvasProfile').removeClass('show');
+})
 
 $(".chat-group").on('click', function () {
     if($(document).width() < 1100)
