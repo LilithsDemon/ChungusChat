@@ -1,5 +1,7 @@
 <?php
 
+require_once("./include/_bdie.php");
+
 if (isset($_POST['username'], $_POST['password']))
 {
     require_once("./include/_connect.php");
@@ -39,13 +41,11 @@ if (isset($_POST['username'], $_POST['password']))
             $_SESSION['user_last_name'] = $USER['LastName'];
             $_SESSION['user_about'] = $USER['About'];
 
-            exit(header("Location: ../index.php"));
+            DieWithStatus("true", 200);
         }
     }
-    else
-    {
-        exit(header("Location: ../login.php"));
-    }
+    DieWithStatus("Your username or password is incorrect.", 401);
 }
 
+DieWithStatus("You must enter a username and password.", 400);
 ?>
