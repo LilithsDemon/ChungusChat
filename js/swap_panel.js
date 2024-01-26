@@ -46,6 +46,8 @@ $(".chat-group").on('click', function () {
         $('.chat').addClass('d-block');
     }
     userName = $(this).find('.username').text();
+    var profile_src = $(this).find($('.profile')).attr('src');
+    $("#profile_chat_img").attr('src', profile_src);
 });
 
 $(".small_to_chat").on('click', function () {
