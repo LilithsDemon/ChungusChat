@@ -117,7 +117,7 @@ if ($_SESSION['auth'] == false) {
                 <div class="chat flex-column w-100 h-100 px-3 d-flex">
                     <div class="profile_top d-flex flex-row">
                         <span class="small_to_chat"> <i class="chat_back_button fa-solid fa-left-long"> </i></span>
-                        <img id="profile_chat_img" src="https://proficon.stablenetwork.uk/api/initials/Prudence Thomas.svg" class="h-100 rounded-circle" alt="User's profile image">
+                        <img id="profile_chat_img" src="https://proficon.stablenetwork.uk/api/initials/un.svg" class="h-100 rounded-circle" alt="User's profile image">
                         <h2 id="chat_username"> Profile Username</h2>
                     </div>
                     <div class="messages">
@@ -147,15 +147,8 @@ if ($_SESSION['auth'] == false) {
         </div>
 
         <div class="toast-container position-fixed bottom-0 end-0 p-3">
-            <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
-                <div class="toast-header">
-                    <img src="https://proficon.stablenetwork.uk/api/initials/pt.svg" height="25px" width="25px" class="rounded me-2" alt="...">
-                    <strong class="me-auto">Username</strong>
-                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-                </div>
-                <div class="toast-body">
-                    This is a preview of the message you have just been sent
-                </div>
+            <div class="toast" id="toast" role="alert" aria-live="assertive" aria-atomic="true">
+
             </div>
         </div>
 

@@ -76,7 +76,6 @@ $(window).resize(function() {
 });
 
 const toastBootstrap = bootstrap.Toast.getOrCreateInstance($(".toast"));
-toastBootstrap.show();
 
 $('#formSendMsg').submit(function (e)
 {
@@ -125,4 +124,22 @@ function FetchMsgs()
     });
 }
 
+function CheckNewMsgs()
+{
+    $.ajax({
+        url: 'check_for_new_messages.php',
+        type: 'GET',
+        success: function(data)
+        {
+            toastBootstrap.show();
+            $('#toast').html(data);
+        },
+        error: function(err)
+        {
+            
+        }
+    });
+}
+
 setInterval(FetchMsgs, 1000);
+setInterval(CheckNewMsgs, 1000);

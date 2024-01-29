@@ -1,5 +1,6 @@
 <?php
 
+require_once('./php/include/_bdie.php');
 session_start();
 
 if(isset($_SESSION['userID']) and isset($_SESSION['chat_userID']))
@@ -18,36 +19,36 @@ mysqli_stmt_bind_param($stmt, "i", $_SESSION['userID']);
 mysqli_stmt_execute($stmt);
 
 $result = mysqli_stmt_get_result($stmt);
+$DATA = mysqli_fetch_assoc($result);
 
-if($result['Count'] > $_SESSION['message_count'])
+if($DATA['Count'] > $_SESSION['message_count'])
 {
-    echo ""; 
-}
+    $_SESSION['message_count'] = $DATA['Count'];
 
+    $SQL = "SELECT `Users`.`Username`, `Users`.`FirstName`, `Users`.`LastName`, `TIMESTAMP`, `Message` FROM `Messages` LEFT JOIN `Users` ON `Users`.`UserID` = `Messages`.`SenderID` WHERE `LocationID` = ? ORDER BY `TIMESTAMP` DESC;";
+    $stmt = mysqli_prepare($connect, $SQL);
+    mysqli_stmt_bind_param($stmt, "i", $_SESSION['userID']);
 
-$SQL = "SELECT `Message`, `TIMESTAMP`, `SenderID` FROM `Messages` WHERE (`SenderID` = ? AND `LocationID` = ?) OR (`SenderID` = ? AND `LocationID` = ?);";
+    mysqli_stmt_execute($stmt);
+    $result = mysqli_stmt_get_result($stmt);
+    $TOAST_DATA = mysqli_fetch_assoc($result);
 
-$stmt = mysqli_prepare($connect, $SQL);
-mysqli_stmt_bind_param($stmt, "iii", $_SESSION['userID'], $_SESSION['chat_userID'], $_SESSION['chat_userID'], $_SESSION['userID']);
-mysqli_stmt_execute($stmt);
-
-$result = mysqli_stmt_get_result($stmt);
-
-if (mysqli_num_rows($result) > 0)
-{
-    while($DATA = mysqli_fetch_assoc($result))
-    if($DATA['SenderID'] != $_SESSION['userID'])
-    {
-        echo "<li style='color: pink;'>" . $DATA['Message'] . " - " . $DATA['TIMESTAMP'] . "</li>";
-    }
-    else
-    {
-        echo "<li>" . $DATA['Message'] . " - " . $DATA['TIMESTAMP'] . "</li>";
-    }
     ?>
-<?php
-} else 
+        <div class="toast-header">
+            <img  <?php echo 'src="https://proficon.stablenetwork.uk/api/initials/' . $TOAST_DATA['FirstName'] . ' ' . $TOAST_DATA['LastName'] . '.svg"' ?> height="25px" width="25px" class="rounded me-2" alt="...">
+            <strong class="me-auto"><?php echo $TOAST_DATA['Username'] ?></strong>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body">
+            <?php echo $TOAST_DATA['Message']; ?>
+        </div>
+    <?php
+} else if ($DATA['Count'] < $_SESSION['message_count']) 
 {
-    echo "There are no messages";
+    $_SESSION['message_count'] == $DATA['Count'];
+    DieWithStatus(404, "Message not found");
+} else
+{
+    DieWithStatus(404, "Message not found");
 }
 }
