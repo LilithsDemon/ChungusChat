@@ -48,8 +48,10 @@ if (mysqli_num_rows($result) > 0)
     }
     ?>
 <?php
+die();
 } else 
 {
     echo "There are no messages";
+    die();
 }
 }

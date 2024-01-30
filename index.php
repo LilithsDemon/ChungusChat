@@ -82,7 +82,7 @@ include('./php/get_pfp.php');
                 </div>
             </nav>
             <div class="full_page_content d-flex">
-                <form id="chatBtns" method="post" action="./php/open_chat.php" class="chat-groups list-group px-2 pt-4 pd-4 d-block d-flex">
+                <div class="chat-groups list-group px-2 pt-4 pd-4 d-block d-flex">
                     <?php
                     $SQL = "SELECT * FROM `Users` WHERE`UserID` != ?;";
 
@@ -115,7 +115,7 @@ include('./php/get_pfp.php');
                     }
 
                     ?>
-                </form>
+                </div>
 
                 <div class="chat flex-column w-100 h-100 px-3 d-flex">
                     <div class="profile_top d-flex flex-row">

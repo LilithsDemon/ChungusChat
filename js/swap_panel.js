@@ -47,7 +47,25 @@ $(".chat-group").on('click', function () {
     }
     userName = $(this).find('.username').text();
     var profile_src = $(this).find($('.profile')).attr('src');
-    $("#profile_chat_img").attr('src', profile_src);
+    $.ajax({
+        url: './php/open_chat.php',
+        method: 'POST',
+        data: {"Username": userName},
+        success: function (data) {
+            $.ajax({
+                url:FetchMsgs(),
+                success:function(){
+                $(".messages").scrollTop($(".messages")[0].scrollHeight);
+                $('#chat_username').html(userName);
+                $("#profile_chat_img").attr('src', profile_src);
+             }
+             })
+        },
+        error: function(err)
+        {
+            console.log(err);
+        }
+    });
 });
 
 $(".small_to_chat").on('click', function () {
@@ -86,24 +104,6 @@ $('#formSendMsg').submit(function (e)
         data: $('#formSendMsg').serialize(),
         success: function (data) {
             $('input').val('');
-        },
-        error: function(err)
-        {
-            console.log(err);
-        }
-    });
-});
-
-$('#chatBtns').submit(function (e)
-{
-    e.preventDefault();
-    $.ajax({
-        url: './php/open_chat.php',
-        method: 'POST',
-        data: {"Username": userName},
-        success: function (data) {
-            FetchMsgs();
-            $('#chat_username').html(userName);
         },
         error: function(err)
         {
