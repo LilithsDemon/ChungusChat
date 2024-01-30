@@ -17,6 +17,8 @@ if ($_SESSION['auth'] == false) {
     header("Location: login.php");
 }
 
+include('./php/get_pfp.php');
+
 ?>
 
 <!DOCTYPE html>
@@ -31,6 +33,7 @@ if ($_SESSION['auth'] == false) {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" type="text/javascript"></script>
+    <script src="https://upload-widget.cloudinary.com/global/all.js" type="text/javascript"></script>
     <link rel="stylesheet" href="css/main.css" />
     <script src="https://kit.fontawesome.com/a29f3f1e4b.js" crossorigin="anonymous"></script>
 </head>
@@ -95,7 +98,7 @@ if ($_SESSION['auth'] == false) {
                     ?>
                             <button class="chat-group list-group-item list-group-item-action d-flex" aria-current="true">
                                 <div class="d-flex h-100 w-25 justify-content-center align-items-center">
-                                    <img class="profile rounded-circle h-100" <?php echo 'src="https://proficon.stablenetwork.uk/api/initials/' . $USER['FirstName'] . ' ' . $USER['LastName'] . '.svg"' ?> alt="Initials Profile Icon" />
+                                    <img class="profile rounded-circle h-100" <?php echo 'src="' . getPfpLink($USER['UserID']) . '"'; ?> alt="Initials Profile Icon" />
                                 </div>
                                 <div class="w-75 justify-content-center d-flex flex-column">
                                     <div class="d-flex w-100 justify-content-between">
@@ -162,7 +165,7 @@ if ($_SESSION['auth'] == false) {
                     <?php
 
                     ?>
-                    <img <? echo 'src="' . 'https://proficon.stablenetwork.uk/api/initials/' . $_SESSION['user_first_name'] . ' ' . $_SESSION['user_last_name'] . '.svg' . '"' ?> class="rounded-circle" height="100px" width="100px">
+                    <img <? echo 'src="' . 'https://proficon.stablenetwork.uk/api/initials/' . $_SESSION['user_first_name'] . ' ' . $_SESSION['user_last_name'] . '.svg' . '"' ?> class="self_profile_img rounded-circle" height="100px" width="100px">
                     <h4 class="pt-2">
                         <?php echo $_SESSION['username'] ?>
                     </h4>
@@ -181,6 +184,7 @@ if ($_SESSION['auth'] == false) {
                 </div>
                 <div class="social_section pt-2 d-flex flex-column">
                     <h4 class="profile_section_title">Social Media Accounts</h4>
+                    <button id="pfp_upload_widget" class="cloudinary-button">Upload files</button>
                 </div>
             </div>
         </div>
@@ -202,6 +206,7 @@ if ($_SESSION['auth'] == false) {
 
 
     <script src="js/swap_panel.js"></script>
+    <script src="js/cloudinary_pfp.js"></script>
 </body>
 
 </html>
