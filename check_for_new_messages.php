@@ -12,6 +12,7 @@ if(isset($_SESSION['userID']) and isset($_SESSION['chat_userID']))
     }
 
 require_once("./php/include/_connect.php");
+include('./php/get_pfp.php');
 
 $SQL = "SELECT COUNT(`MessageID`) as 'Count' FROM `Messages` WHERE `LocationID` = ?;";
 $stmt = mysqli_prepare($connect, $SQL);
@@ -25,7 +26,7 @@ if($DATA['Count'] > $_SESSION['message_count'])
 {
     $_SESSION['message_count'] = $DATA['Count'];
 
-    $SQL = "SELECT `Users`.`Username`, `Users`.`FirstName`, `Users`.`LastName`, `TIMESTAMP`, `Message` FROM `Messages` LEFT JOIN `Users` ON `Users`.`UserID` = `Messages`.`SenderID` WHERE `LocationID` = ? ORDER BY `TIMESTAMP` DESC;";
+    $SQL = "SELECT `Users`.`UserID`, `Users`.`Username`, `Users`.`FirstName`, `Users`.`LastName`, `TIMESTAMP`, `Message` FROM `Messages` LEFT JOIN `Users` ON `Users`.`UserID` = `Messages`.`SenderID` WHERE `LocationID` = ? ORDER BY `TIMESTAMP` DESC;";
     $stmt = mysqli_prepare($connect, $SQL);
     mysqli_stmt_bind_param($stmt, "i", $_SESSION['userID']);
 
@@ -35,7 +36,7 @@ if($DATA['Count'] > $_SESSION['message_count'])
 
     ?>
         <div class="toast-header">
-            <img  <?php echo 'src="https://proficon.stablenetwork.uk/api/initials/' . $TOAST_DATA['FirstName'] . ' ' . $TOAST_DATA['LastName'] . '.svg"' ?> height="25px" width="25px" class="rounded me-2" alt="...">
+            <img  <?php echo 'src="' . getPfpLink($TOAST_DATA['UserID']) . '"' ?> height="25px" width="25px" class="rounded me-2" alt="...">
             <strong class="me-auto"><?php echo $TOAST_DATA['Username'] ?></strong>
             <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
         </div>

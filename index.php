@@ -165,7 +165,7 @@ include('./php/get_pfp.php');
                     <?php
 
                     ?>
-                    <img <? echo 'src="' . 'https://proficon.stablenetwork.uk/api/initials/' . $_SESSION['user_first_name'] . ' ' . $_SESSION['user_last_name'] . '.svg' . '"' ?> class="self_profile_img rounded-circle" height="100px" width="100px">
+                    <img <? echo 'src="' . getPfpLink($_SESSION['userID']) . '"' ?> class="self_profile_img rounded-circle" height="100px" width="100px">
                     <h4 class="pt-2">
                         <?php echo $_SESSION['username'] ?>
                     </h4>
