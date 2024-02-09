@@ -1,3 +1,13 @@
+:root
+{
+    --light_primary: #ebced5;
+    --dark_primary: #8e44ad;
+    --faint_bg: #E5F6EE;
+
+    --bg_colour: #f5fff5;
+    --text_colour: #001100;
+}
+
 body{
     margin: 0;
     padding: 0;
