@@ -40,7 +40,7 @@ if($DATA['Count'] > $_SESSION['message_count'])
             <strong class="me-auto"><?php echo $TOAST_DATA['Username'] ?></strong>
             <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
         </div>
-        <div class="toast-body">
+        <div class="toast-body text-truncate">
             <?php echo $TOAST_DATA['Message']; ?>
         </div>
     <?php

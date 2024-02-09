@@ -42,8 +42,8 @@ include('./php/get_pfp.php');
     <div class="main-container d-flex">
         <div class="sidebar" id="side_nav">
             <div class="header-box px-4 pt-3 pb-4 d-flex justify-content-between">
-                <h1 class="fs-4"> <span class="text-white">ChungusChat</span></h1>
-                <button class="btn d-md-none d-block close-btn px-1 py-0 text-white"><i class="fa fa-stream"></i></button>
+                <h1 class="fs-4"> <span style="color: var(--bs-body-color);">ChungusChat</span></h1>
+                <button class="btn d-md-none d-block close-btn px-1 py-0"><i class="fa fa-stream"></i></button>
             </div>
 
             <ul class="main_list list-unstyled px-2">
@@ -62,7 +62,7 @@ include('./php/get_pfp.php');
                     </a>
                 </li>
             </ul>
-            <hr class="h-color mx-2">
+            <hr class="h-color mx-4">
 
             <ul class="end_nav list-unstyled flex-column justify-content-end d-flex px-2">
                 <li class=""><a id="settings_open" data-bs-toggle="modal" data-bs-target="#settings" href="#settings" class="text-decoration-none px-3 py-2 d-block"><i class="fa fa-bars"></i>
@@ -73,10 +73,10 @@ include('./php/get_pfp.php');
 
         </div>
         <div class="content">
-            <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+            <nav class="navbar navbar-expand-md">
                 <div class="container-fluid">
                     <div class="d-flex justify-content-between d-md-none d-block">
-                        <button class="btn px-1 py-0 open-btn me-2"><i style="color: #eee;" class="fa fa-stream"></i></button>
+                        <button class="btn px-1 py-0 open-btn me-2"><i style="color: var(--bs-body-color);" class="fa fa-stream"></i></button>
                         <a class="navbar-brand fs-4" href="#">ChungusChat</a>
                     </div>
                 </div>
@@ -84,6 +84,7 @@ include('./php/get_pfp.php');
             <div class="full_page_content d-flex">
                 <div class="chat-groups list-group px-2 pt-4 pd-4 d-block d-flex">
                     <?php
+                    require_once("./php/group_block.php");
                     $SQL = "SELECT * FROM `Users` WHERE`UserID` != ?;";
 
                     $stmt = mysqli_prepare($connect, $SQL);
@@ -94,21 +95,8 @@ include('./php/get_pfp.php');
 
                     if (mysqli_num_rows($result) > 0) {
                         while ($USER = mysqli_fetch_assoc($result)) {
-
-                    ?>
-                            <button class="chat-group list-group-item list-group-item-action d-flex" aria-current="true">
-                                <div class="d-flex h-100 w-25 justify-content-center align-items-center">
-                                    <img class="profile rounded-circle h-100" <?php echo 'src="' . getPfpLink($USER['UserID']) . '"'; ?> alt="Initials Profile Icon" />
-                                </div>
-                                <div class="w-75 justify-content-center d-flex flex-column">
-                                    <div class="d-flex w-100 justify-content-between">
-                                        <h5 class="mb-1 username"><?php echo $USER['Username'] ?></h5>
-                                        <small>3 days ago</small>
-                                    </div>
-                                    <p class="mb-1">Some placeholder content ...</p>
-                                </div>
-                            </button>
-                    <?
+                            $group_block = new UserBlock($USER['ImgSrc'], $USER['Username'], "Some Message", "2 days ago");
+                            $group_block->outputBlock();
                         }
                     } else {
                         echo "There are no other users";
@@ -155,7 +143,7 @@ include('./php/get_pfp.php');
             </div>
         </div>
 
-        <div class="offcanvas offcanvas-end text-bg-dark" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1" id="offCanvasProfile" aria-labelledby="offcanvasRightLabel">
+        <div class="offcanvas offcanvas-end" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1" id="offCanvasProfile" aria-labelledby="offcanvasRightLabel">
             <div class="offcanvas-header">
                 <h5 class="offcanvas-title" id="offcanvasRightLabel">Profile</h5>
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
@@ -184,7 +172,7 @@ include('./php/get_pfp.php');
                 </div>
                 <div class="social_section pt-2 d-flex flex-column">
                     <h4 class="profile_section_title">Social Media Accounts</h4>
-                    <button id="pfp_upload_widget" class="cloudinary-button">Upload files</button>
+                    <button id="pfp_upload_widget" class="cloudinary-button">Change Profile Image</button>
                 </div>
             </div>
         </div>
