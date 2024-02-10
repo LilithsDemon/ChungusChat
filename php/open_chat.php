@@ -5,14 +5,11 @@ if(!isset($_POST['RoomName'])) die("No message recieved!");
 session_start();
 
 require_once("./include/_connect.php");
+include("./include/_execute.php");
 
 $SQL = "SELECT `RoomID` FROM `ChatRooms` WHERE `RoomName` = ?";
 
-$stmt = mysqli_prepare($connect, $SQL);
-mysqli_stmt_bind_param($stmt, "s", $_POST['RoomName']);
-mysqli_stmt_execute($stmt);
-
-$result = mysqli_stmt_get_result($stmt);
+$result = executeCommand($SQL, 's', [$_POST['RoomName']]);
 
 if (mysqli_num_rows($result) === 0)
 {

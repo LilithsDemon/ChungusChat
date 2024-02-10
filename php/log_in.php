@@ -5,6 +5,7 @@ require_once("./include/_bdie.php");
 if (isset($_POST['username'], $_POST['password']))
 {
     require_once("./include/_connect.php");
+    include("./include/_execute.php");
 
     $username = $_POST['username'];
     $user_password = $_POST['password'];
@@ -17,11 +18,7 @@ if (isset($_POST['username'], $_POST['password']))
 
     $SQL = "SELECT * FROM `Users` WHERE `Username` = ?";
 
-    $stmt = mysqli_prepare($connect, $SQL);
-    mysqli_stmt_bind_param($stmt, "s", $username);
-    mysqli_stmt_execute($stmt);
-
-    $result = mysqli_stmt_get_result($stmt);
+    $result = executeCommand($SQL, 's', [$username]);
     
     if (mysqli_num_rows($result) === 1)
     {
