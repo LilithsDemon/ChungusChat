@@ -18,6 +18,7 @@ if ($_SESSION['auth'] == false) {
 }
 
 include('./php/get_pfp.php');
+include('./php/include/_execute.php');
 
 ?>
 
@@ -85,17 +86,14 @@ include('./php/get_pfp.php');
                 <div class="chat-groups list-group px-2 pt-4 pd-4 d-block d-flex">
                     <?php
                     require_once("./php/group_block.php");
-                    $SQL = "SELECT * FROM `Users` WHERE`UserID` != ?;";
+                    $SQL = "SELECT `RoomName`, `ChatRooms`.`RoomID`, `RoomImg` FROM `ChatRooms` LEFT JOIN `UserToRoom` ON `UserToRoom`.`RoomID` = `ChatRooms`.`RoomID` WHERE `UserToRoom`.`UserID` = ?;";
 
-                    $stmt = mysqli_prepare($connect, $SQL);
-                    mysqli_stmt_bind_param($stmt, "i", $_SESSION['userID']);
-                    mysqli_stmt_execute($stmt);
-
-                    $result = mysqli_stmt_get_result($stmt);
+                    $result = executeCommand($SQL, 'i', [$_SESSION['userID']]);
 
                     if (mysqli_num_rows($result) > 0) {
-                        while ($USER = mysqli_fetch_assoc($result)) {
-                            $group_block = new UserBlock($USER['ImgSrc'], $USER['Username'], "Some Message", "2 days ago");
+                        require_once("./php/last_message.php");
+                        while ($DATA = mysqli_fetch_assoc($result)) {
+                            $group_block = new ChatBlock($DATA['RoomImg'], $DATA['RoomName'], getChatMessage($DATA['RoomID']), "2 days ago");
                             $group_block->outputBlock();
                         }
                     } else {
@@ -128,9 +126,9 @@ include('./php/get_pfp.php');
 
                         </ul>
                     </div>
-                    <form id="formSendMsg">
-                        <input type="text" name="txtInput" placeholder="Enter your message..."></input>
-                        <button type="submit">Send!</button>
+                    <form class="d-flex align-items-center justify-content-center w-100" id="formSendMsg">
+                        <textarea class="p-2 h-100 mt-4" type="text" name="txtInput" placeholder="Enter your message..."></textarea>
+                        <button class="p-2 h-100 mt-4" type="submit">Send!</button>
                     </form>
 
                 </div>
@@ -146,7 +144,7 @@ include('./php/get_pfp.php');
         <div class="offcanvas offcanvas-end" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1" id="offCanvasProfile" aria-labelledby="offcanvasRightLabel">
             <div class="offcanvas-header">
                 <h5 class="offcanvas-title" id="offcanvasRightLabel">Profile</h5>
-                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                <button type="button" class="btn-close btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
             </div>
             <div class="offcanvas-body d-flex flex-column">
                 <div class="profile_info_top d-flex flex-column align-items-center justify-content-center">

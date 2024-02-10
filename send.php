@@ -2,21 +2,22 @@
 if(!isset($_POST['txtInput'])) die("No message recieved!");
 
 require_once("./php/include/_connect.php");
+include("./php/include/_execute.php");
 
 session_start();
 
-if(isset($_SESSION['userID']) and isset($_SESSION['chat_userID']))
+if(isset($_SESSION['userID']) and isset($_SESSION['RoomID']))
 {
 
 $value = $_POST['txtInput'];
 
-$SQL = "INSERT INTO `Messages`(`MessageID`, `Message`, `TIMESTAMP`,`SenderID`, `LocationID`) VALUES (Null,?,Null,?, ?);";
+$SQL = "INSERT INTO `Messages`(`MessageID`, `Message`, `TIMESTAMP`,`SenderID`, `RoomID`, `Seen`) VALUES (Null,?,Null,?, ?, 0);";
 
-$userID = 0;
+$result = executeCommand($SQL, 'sii', [$value, $_SESSION['userID'], $_SESSION['RoomID']]);
 
-$stmt = mysqli_prepare($connect, $SQL);
-mysqli_stmt_bind_param($stmt, "sii", $value, $_SESSION['userID'], $_SESSION['chat_userID']);
-mysqli_stmt_execute($stmt);
+echo("Message sent!");
 }
+
+echo("message not sent!");
 
 die();

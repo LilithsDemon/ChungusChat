@@ -1,4 +1,4 @@
-var userName = 0;
+var roomName = "";
 
 $(".sidebar .main_list li").on('click', function () {
     $(".sidebar ul li.active").removeClass('active');
@@ -45,18 +45,18 @@ $(".chat-group").on('click', function () {
         $('.chat').addClass('d-flex');
         $('.chat').addClass('d-block');
     }
-    userName = $(this).find('.username').text();
+    roomName = $(this).find('.username').text();
     var profile_src = $(this).find($('.profile')).attr('src');
     $.ajax({
         url: './php/open_chat.php',
         method: 'POST',
-        data: {"Username": userName},
+        data: {"RoomName": roomName},
         success: function (data) {
             $.ajax({
                 url:FetchMsgs(),
                 success:function(){
                 $(".messages").scrollTop($(".messages")[0].scrollHeight);
-                $('#chat_username').html(userName);
+                $('#chat_username').html(roomName);
                 $("#profile_chat_img").attr('src', profile_src);
              }
              })
@@ -90,7 +90,9 @@ $(window).resize(function() {
         $('.chat-groups').removeClass('hide');
         $('.chat-groups').addClass('d-flex');
         $('.chat-groups').addClass('d-block');
-    }
+    } 
+    $('.messages').css('max-height', "calc(80% - " +  $('.navbar').height() + "px)");
+    $('.messages').css('flex', "calc(80% - " +  $('.navbar').css("height") + "px)");
 });
 
 const toastBootstrap = bootstrap.Toast.getOrCreateInstance($(".toast"));
@@ -124,22 +126,6 @@ function FetchMsgs()
     });
 }
 
-function CheckNewMsgs()
-{
-    $.ajax({
-        url: 'check_for_new_messages.php',
-        type: 'GET',
-        success: function(data)
-        {
-            toastBootstrap.show();
-            $('#toast').html(data);
-        },
-        error: function(err)
-        {
-            
-        }
-    });
-}
-
+$('.messages').css('max-height', "calc(80% - " +  $('.navbar').height() + "px)");
+$('.messages').css('flex', "calc(80% - " +  $('navbar').css("height") + "px)");
 setInterval(FetchMsgs, 1000);
-setInterval(CheckNewMsgs, 1000);

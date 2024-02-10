@@ -2,20 +2,15 @@
 
 session_start();
 
-if(isset($_SESSION['userID']) and isset($_SESSION['chat_userID']))
+if(isset($_SESSION['RoomID']))
 {
 
 require_once("./php/include/_connect.php");
+include('./php/include/_execute.php');
 
+$SQL = "SELECT `Users`.`Username`, `SenderID`, `MessageID`, `Message`, `TIMESTAMP`, `RoomID`, `Seen` FROM `Messages` LEFT JOIN `Users` ON `Users`.`UserID` = `Messages`.`SenderID` WHERE `RoomID` = ? ORDER BY `TIMESTAMP` ASC;";
 
-
-$SQL = "SELECT `Users`.`Username`, `Message`, `TIMESTAMP`, `SenderID` FROM `Messages` LEFT JOIN `Users` ON `Users`.`UserID` = `Messages`.`SenderID` WHERE (`SenderID` = ? AND `LocationID` = ?) OR (`SenderID` = ? AND `LocationID` = ?) ORDER BY `TIMESTAMP` ASC;";
-
-$stmt = mysqli_prepare($connect, $SQL);
-mysqli_stmt_bind_param($stmt, "iiii", $_SESSION['userID'], $_SESSION['chat_userID'], $_SESSION['chat_userID'], $_SESSION['userID']);
-mysqli_stmt_execute($stmt);
-
-$result = mysqli_stmt_get_result($stmt);
+$result = executeCommand($SQL, 'i', [$_SESSION['RoomID']]);
 
 if (mysqli_num_rows($result) > 0)
 {
@@ -32,6 +27,13 @@ if (mysqli_num_rows($result) > 0)
                 </div>
             </div>
         <?php
+        if($DATA['Seen'] == 0)
+        {
+            $SQL = "UPDATE `Messages` SET `Seen` = 1 WHERE `MessageID` = ?;";
+
+            $seen = executeCommand($SQL, 'i', [$DATA['MessageID']]);
+        
+        }
     }
     else
     {

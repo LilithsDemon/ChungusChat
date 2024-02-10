@@ -4,7 +4,7 @@ if(!isset($_POST['link'])) die("No message recieved!");
 
 session_start();
 
-require_once("./include/_connect.php");
+require_once("../php/include/_connect.php");
 
 $SQL = "UPDATE `Users` SET `ImgSrc`=? WHERE `UserID` = ?;";
 
