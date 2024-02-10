@@ -17,8 +17,8 @@ if ($_SESSION['auth'] == false) {
     header("Location: login.php");
 }
 
-include('./php/get_pfp.php');
-include('./php/include/_execute.php');
+require_once('./php/get_pfp.php');
+require_once('./php/include/_execute.php');
 
 ?>
 

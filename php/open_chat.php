@@ -5,7 +5,7 @@ if(!isset($_POST['RoomName'])) die("No message recieved!");
 session_start();
 
 require_once("./include/_connect.php");
-include("./include/_execute.php");
+require_once("./include/_execute.php");
 
 $SQL = "SELECT `RoomID` FROM `ChatRooms` WHERE `RoomName` = ?";
 

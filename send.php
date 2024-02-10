@@ -2,7 +2,7 @@
 if(!isset($_POST['txtInput'])) die("No message recieved!");
 
 require_once("./php/include/_connect.php");
-include("./php/include/_execute.php");
+include_once("./php/include/_execute.php");
 
 session_start();
 

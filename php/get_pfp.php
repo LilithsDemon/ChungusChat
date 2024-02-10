@@ -1,8 +1,8 @@
 <?php
 function getPfpLink($userID)
 {
-    require("./php/include/_connect.php");
-    include("./php/include/_execute.php");
+    require_once("./php/include/_connect.php");
+    require_once("./php/include/_execute.php");
 
     $SQL = "SELECT `ImgSrc` FROM `Users` WHERE `UserID` = ?;";
 

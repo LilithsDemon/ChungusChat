@@ -6,7 +6,7 @@ if(isset($_SESSION['RoomID']))
 {
 
 require_once("./php/include/_connect.php");
-include('./php/include/_execute.php');
+require_once('./php/include/_execute.php');
 
 $SQL = "SELECT `Users`.`Username`, `SenderID`, `MessageID`, `Message`, `TIMESTAMP`, `RoomID`, `Seen` FROM `Messages` LEFT JOIN `Users` ON `Users`.`UserID` = `Messages`.`SenderID` WHERE `RoomID` = ? ORDER BY `TIMESTAMP` ASC;";
 

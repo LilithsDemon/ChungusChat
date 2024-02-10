@@ -1,7 +1,7 @@
 <?php
 
 require_once("./php/include/_connect.php");
-include("./php/include/_execute.php");
+include_once("./php/include/_execute.php");
 
 function getChatMessage($RoomID)
 {
