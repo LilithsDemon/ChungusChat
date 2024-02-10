@@ -41,154 +41,33 @@ include('./php/include/_execute.php');
 
 <body>
     <div class="main-container d-flex">
-        <div class="sidebar" id="side_nav">
-            <div class="header-box px-4 pt-3 pb-4 d-flex justify-content-between">
-                <h1 class="fs-4"> <span style="color: var(--bs-body-color);">ChungusChat</span></h1>
-                <button class="btn d-md-none d-block close-btn px-1 py-0"><i class="fa fa-stream"></i></button>
-            </div>
-
-            <ul class="main_list list-unstyled px-2">
-                <li class="active"><a href="#" class="text-decoration-none px-3 py-2 d-block d-flex justify-content-between">
-                        <span><i class="fa fa-comment"></i> Chats</span>
-                        <span class="bg-danger rounded-pill text-white py-0 px-2">02</span>
-                    </a>
-                </li>
-                <li class=""><a href="#" class="text-decoration-none px-3 py-2 d-block d-flex justify-content-between">
-                        <span><i class="fa fa-users"></i> Friends</span>
-                    </a>
-                </li>
-                <li class=""><a href="#" class="text-decoration-none px-3 py-2 d-block d-flex justify-content-between">
-                        <span><i class="fa fa-bell"></i> Notifications</span>
-                        <span class="bg-danger rounded-pill text-white py-0 px-2">02</span>
-                    </a>
-                </li>
-            </ul>
-            <hr class="h-color mx-4">
-
-            <ul class="end_nav list-unstyled flex-column justify-content-end d-flex px-2">
-                <li class=""><a id="settings_open" data-bs-toggle="modal" data-bs-target="#settings" href="#settings" class="text-decoration-none px-3 py-2 d-block"><i class="fa fa-bars"></i>
-                        Settings</a></li>
-                <li class="profile_open"><a data-bs-toggle="offcanvas" href="#offCanvasProfile" role="button" class="text-decoration-none px-3 py-2 d-block"><i class="fa fa-user"></i>
-                        Profile</a></li>
-            </ul>
-
-        </div>
+        <?php
+            include('./components/sidebar.php');
+        ?>
         <div class="content">
-            <nav class="navbar navbar-expand-md">
-                <div class="container-fluid">
-                    <div class="d-flex justify-content-between d-md-none d-block">
-                        <button class="btn px-1 py-0 open-btn me-2"><i style="color: var(--bs-body-color);" class="fa fa-stream"></i></button>
-                        <a class="navbar-brand fs-4" href="#">ChungusChat</a>
-                    </div>
-                </div>
-            </nav>
+            <?php
+                include('./components/extra_nav.php');
+            ?>
             <div class="full_page_content d-flex">
-                <div class="chat-groups list-group px-2 pt-4 pd-4 d-block d-flex">
-                    <?php
-                    require_once("./php/group_block.php");
-                    $SQL = "SELECT `RoomName`, `ChatRooms`.`RoomID`, `RoomImg` FROM `ChatRooms` LEFT JOIN `UserToRoom` ON `UserToRoom`.`RoomID` = `ChatRooms`.`RoomID` WHERE `UserToRoom`.`UserID` = ?;";
-
-                    $result = executeCommand($SQL, 'i', [$_SESSION['userID']]);
-
-                    if (mysqli_num_rows($result) > 0) {
-                        require_once("./php/last_message.php");
-                        while ($DATA = mysqli_fetch_assoc($result)) {
-                            $group_block = new ChatBlock($DATA['RoomImg'], $DATA['RoomName'], getChatMessage($DATA['RoomID']), "2 days ago");
-                            $group_block->outputBlock();
-                        }
-                    } else {
-                        echo "There are no other users";
-                    }
-
-                    ?>
-                </div>
-
-                <div class="chat flex-column w-100 h-100 px-3 d-flex">
-                    <div class="profile_top d-flex flex-row">
-                        <span class="small_to_chat"> <i class="chat_back_button fa-solid fa-left-long"> </i></span>
-                        <img id="profile_chat_img" src="https://proficon.stablenetwork.uk/api/initials/un.svg" class="h-100 rounded-circle" alt="User's profile image">
-                        <h2 id="chat_username"> Profile Username</h2>
-                    </div>
-                    <div class="messages">
-                        <ul id="chatMessages">
-                            <?php
-                            if (!isset($_SESSION['chat_userID'])) {
-                            ?>
-                                <p>No chat open</p>
-                            <?php
-                            } else {
-                            ?>
-                                <li>loading ... </li>
-
-                            <?php
-                            }
-                            ?>
-
-                        </ul>
-                    </div>
-                    <form class="d-flex align-items-center justify-content-center w-100" id="formSendMsg">
-                        <textarea class="p-2 h-100 mt-4" type="text" name="txtInput" placeholder="Enter your message..."></textarea>
-                        <button class="p-2 h-100 mt-4" type="submit">Send!</button>
-                    </form>
-
-                </div>
+                <?php
+                    include('./components/chat.php');
+                ?>
             </div>
         </div>
 
-        <div class="toast-container position-fixed bottom-0 end-0 p-3">
-            <div class="toast" id="toast" role="alert" aria-live="assertive" aria-atomic="true">
+        <?php
+        include('./components/toast.php');
+        ?>
 
-            </div>
-        </div>
-
-        <div class="offcanvas offcanvas-end" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1" id="offCanvasProfile" aria-labelledby="offcanvasRightLabel">
-            <div class="offcanvas-header">
-                <h5 class="offcanvas-title" id="offcanvasRightLabel">Profile</h5>
-                <button type="button" class="btn-close btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-            </div>
-            <div class="offcanvas-body d-flex flex-column">
-                <div class="profile_info_top d-flex flex-column align-items-center justify-content-center">
-                    <?php
-
-                    ?>
-                    <img <? echo 'src="' . getPfpLink($_SESSION['userID']) . '"' ?> class="self_profile_img rounded-circle" height="100px" width="100px">
-                    <h4 class="pt-2">
-                        <?php echo $_SESSION['username'] ?>
-                    </h4>
-                </div>
-                <div class="about_section pt-2 d-flex flex-column">
-                    <h4 class="profile_section_title">About</h4>
-                    <p>
-                        <?php echo $_SESSION['user_about'] ?>
-                    </p>
-                </div>
-                <div class="website_section pt-2 d-flex flex-column">
-                    <h4 class="profile_section_title">Website</h4>
-                    <a href="#">
-                        <p>https://chungus.lilithtech.dev</p>
-                    </a>
-                </div>
-                <div class="social_section pt-2 d-flex flex-column">
-                    <h4 class="profile_section_title">Social Media Accounts</h4>
-                    <button id="pfp_upload_widget" class="cloudinary-button">Change Profile Image</button>
-                </div>
-            </div>
-        </div>
+        <?php
+            include('./components/profile.php');
+            selfProfile();
+        ?>
     </div>
 
-    <div class="modal" id="settings" tabindex="-1">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Settings</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <p>Modal body text goes here.</p>
-                </div>
-            </div>
-        </div>
-    </div>
+    <?php
+    include('./components/settings.php');
+    ?>
 
 
     <script src="js/swap_panel.js"></script>
