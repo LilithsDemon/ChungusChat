@@ -105,7 +105,13 @@ $('#formSendMsg').submit(function (e)
         method: 'POST',
         data: $('#formSendMsg').serialize(),
         success: function (data) {
-            $('input').val('');
+            $('textarea').val('');
+            $.ajax({
+                url: FetchMsgs(),
+                success: function(){
+                    $(".messages").scrollTop($(".messages")[0].scrollHeight);
+                }
+            });
         },
         error: function(err)
         {

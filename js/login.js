@@ -10,6 +10,7 @@ $(document).ready(function () {
             url: "./php/log_in.php",
             data: $("#login_form").serialize(),
             success: function (data) {
+                console.log(data);
                 if (data == "true") window.location.href = "../";
             },
             error: function (data) {

@@ -1,5 +1,5 @@
 <?php
-require_once("./php/include/_connect.php");
+require_once("_connect.php");
 
 function executeCommand($sql, $param_type, $params)
 {

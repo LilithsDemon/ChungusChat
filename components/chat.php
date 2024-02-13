@@ -14,7 +14,6 @@
     } else {
         echo "There are no other users";
     }
-
     ?>
 </div>
 

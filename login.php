@@ -3,19 +3,17 @@
 session_start();
 
 if (!isset($_SESSION['username'])) {
-	$_SESSION['username'] = "Blank";
+  $_SESSION['username'] = "Blank";
 }
 
-if (!isset($_SESSION['auth']))
-{
-	$_SESSION['auth'] = false;
+if (!isset($_SESSION['auth'])) {
+  $_SESSION['auth'] = false;
 }
 
 include("./php/include/_connect.php");
 
-if (isset($_GET['username']))
-{
-    header("Location: ../admin_page_user");
+if (isset($_GET['username'])) {
+  header("Location: ../admin_page_user");
 }
 
 ?>
@@ -37,7 +35,7 @@ if (isset($_GET['username']))
 <body>
   <div class="center">
     <h1>Login</h1>
-    <form id="login_form" action="php/log_in.php" method="post">
+    <form id="login_form" action="./php/log_in.php" method="post">
       <div class="txt_field">
         <input type="text" name="username" id="username" required>
         <span></span>
