@@ -7,6 +7,7 @@ if(isset($_SESSION['RoomID']))
 
 require_once("./php/include/_connect.php");
 require_once('./php/include/_execute.php');
+require_once('./components/message.php');
 
 $SQL = "SELECT `Users`.`Username`, `SenderID`, `MessageID`, `Message`, `TIMESTAMP`, `RoomID`, `Seen` FROM `Messages` LEFT JOIN `Users` ON `Users`.`UserID` = `Messages`.`SenderID` WHERE `RoomID` = ? ORDER BY `TIMESTAMP` ASC;";
 
@@ -17,36 +18,13 @@ if (mysqli_num_rows($result) > 0)
     while($DATA = mysqli_fetch_assoc($result))
     if($DATA['SenderID'] != $_SESSION['userID'])
     {
-        ?>
-            <div class="card other mt-4 w-75">
-                <div class="card-header">
-                    <?php echo $DATA['Username'] . " | " . $DATA['TIMESTAMP'] ?>
-                </div>
-                <div class="card-body">
-                    <?php echo $DATA['Message'] ?>
-                </div>
-            </div>
-        <?php
-        if($DATA['Seen'] == 0)
-        {
-            $SQL = "UPDATE `Messages` SET `Seen` = 1 WHERE `MessageID` = ?;";
-
-            $seen = executeCommand($SQL, 'i', [$DATA['MessageID']]);
-        
-        }
+        $message = new SelfMessage($DATA['Message'], $DATA['TIMESTAMP'], $DATA['Username'], $DATA['Seen'], $DATA['MessageID']);
+        $message->getMessage();
     }
     else
     {
-        ?>
-            <div class="card self mt-4 d-flex w-75">
-                <div class="card-header">
-                    <?php echo $DATA['Username'] . " | " . $DATA['TIMESTAMP'] ?>
-                </div>
-                <div class="card-body">
-                    <?php echo $DATA['Message'] ?>
-                </div>
-            </div>
-        <?php
+        $message = new Message($DATA['Message'], $DATA['TIMESTAMP'], $DATA['Username']);
+        $message->getMessage();
     }
     ?>
 <?php

@@ -45,12 +45,12 @@ $(".chat-group").on('click', function () {
         $('.chat').addClass('d-flex');
         $('.chat').addClass('d-block');
     }
-    roomName = $(this).find('.username').text();
     var profile_src = $(this).find($('.profile')).attr('src');
+    roomName = $(this).find('.username').text();
     $.ajax({
         url: './php/open_chat.php',
         method: 'POST',
-        data: {"RoomName": roomName},
+        data: {"RoomID": $(this).find('input[name="roomID"]').val()},
         success: function (data) {
             $.ajax({
                 url:FetchMsgs(),
@@ -67,6 +67,8 @@ $(".chat-group").on('click', function () {
         }
     });
 });
+
+
 
 $(".small_to_chat").on('click', function () {
     if($(document).width() < 1100)

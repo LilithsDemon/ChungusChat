@@ -12,13 +12,15 @@ class Block{
 
 class ChatBlock extends Block
 {
+    private $roomID;
     private $last_message;
     private $time;
 
     public function outputBlock()
     {
         ?>
-            <button class="chat-group list-group-item list-group-item-action d-flex" aria-current="true">
+            <form method="post" action="./php/open_chat" class="chat-group list-group-item list-group-item-action d-flex" aria-current="true">
+                <input type="hidden"name="roomID" value="<?php echo $this->roomID ?>">
                 <div class="d-flex h-100 w-25 justify-content-center align-items-center">
                     <img class="profile rounded-circle h-100" <?php echo 'src="' . $this->img . '"'; ?> alt="Initials Profile Icon" />
                 </div>
@@ -29,15 +31,15 @@ class ChatBlock extends Block
                     </div>
                     <p class="mb-1 text-truncate"><?php echo $this->last_message ?></p>
                 </div>
-            </button>
+            </form>
         <?php
     }
 
-    public function __construct($img, $title, $last_message, $time) {
-        $this->img = $img;
-        $this->title = $title;
+    public function __construct($img, $title, $last_message, $time, $roomID) {
+        parent::__construct($img, $title);
         $this->last_message = $last_message; 
         $this->time = $time;
+        $this->roomID = $roomID;
     }
 }
 
@@ -65,8 +67,7 @@ class UserBlock extends Block
     }
 
     public function __construct($img, $title, $last_message, $time) {
-        $this->img = $img;
-        $this->title = $title;
+        parent::__construct($img, $title);
         $this->last_message = $last_message; 
         $this->time = $time;
     }
