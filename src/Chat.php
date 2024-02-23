@@ -5,9 +5,13 @@
 namespace MyApp;
 use Ratchet\MessageComponentInterface;
 use Ratchet\ConnectionInterface;
+require dirname(__DIR__) . "/classes/user.php";
+session_start();
 
 class Chat implements MessageComponentInterface {
     protected $clients;
+    public $user_object;
+
 
     public function __construct() {
         $this->clients = new \SplObjectStorage;
@@ -17,21 +21,27 @@ class Chat implements MessageComponentInterface {
     public function onOpen(ConnectionInterface $conn) {
         // Store the new connection to send messages to later
         echo 'Server Started';
-        $this->clients->attach($conn);
+        $this->user_object = new \ChatUser($_SESSION['userID']);
+        $this->clients->attach($conn, $this->user_object);
 
         echo "New connection! ({$conn->resourceId})\n";
     }
 
     public function onMessage(ConnectionInterface $from, $msg) {
-        foreach ($this->clients as $client) {
-            if ($from !== $client) {
-                // The sender is not the receiver, send to each client connected
-                /*
-                Copy from existing code
-                */
-                $client->send($msg);
-            }
+        $data = json_decode($msg, true);
+        if(isset($data['status'])) return "Connection renewed!";
+        if(isset($data['update']))
+        {
+            $this->user_object->updateData();
+            return "Data Updated!";
         }
+        foreach ($this->clients as $client) {
+            if ($data['from'] != $client->getUserID()) {
+                $user_rooms = $client->getRooms();
+                if(in_array($data['room'], $user_rooms)) $client->send($msg);
+            } else $client->send($msg);
+        }
+        return 1;
     }
 
     public function onClose(ConnectionInterface $conn) {

@@ -42,7 +42,16 @@ conn.onmessage = function (e) {
     console.log(e.data);
 	var data = JSON.parse(e.data);
 	
-	if (typeof data.status !== 'undefined') {
-		console.log("Connection reopened!");
-	}
+	if (typeof data.status !== 'undefined') console.log("Connection reopened!");
+	if (typeof data.update !== 'undefined') console.log("user Data updated!");
+
+    $.ajax({
+        url: 'append_message.php',
+        type: 'POST',
+		data: {"RoomID": data.room, "Message": data.msg, "SenderID": data.from},
+        success: function(data)
+        {
+            $('#chatMessages').append(data);
+        }
+    });
 };

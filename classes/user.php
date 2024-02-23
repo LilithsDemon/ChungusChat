@@ -11,26 +11,24 @@ class ChatUser
 	private $About;
 	private $ImgSrc;
 
-	private $rooms = array();
-	public $connect;
+	private $Rooms = array();
+
+	private $Friends = array();
 
 	public function __construct($UserID)
 	{
 		$this->UserID = $UserID;
 
-		require_once('./php/include/_connect.php');
         require_once('./php/include/_execute.php');
 
-		$this->connect = $connect;
-
-		$this->update_data();
+		$this->updateData();
 	}
 
-	function update_data()
+	public function updateData()
 	{
 		$SQL = "SELECT `RoomID` FROM `UserToRoom` WHERE `UserID` = ?";
         $result = executeCommand($SQL, 'i', [$this->UserID]);
-		while($DATA = mysqli_fetch_assoc($result)) $this->rooms.array_push($DATA['RoomID']);
+		while($DATA = mysqli_fetch_assoc($result)) $this->Rooms.array_push($DATA['RoomID']);
 
 		$SQL = "SELECT `Username`, `FirstName`, `LastName`, `About`, `ImgSrc` FROM `Users` WHERE `UserID` = ?";
 		$result = executeCommand($SQL, 'i', [$this->UserID]);
@@ -41,8 +39,19 @@ class ChatUser
 		$this->About = $DATA['About'];
 		$this->ImgSrc = $DATA['ImgSrc'];
 	}
+
+	public function getRooms()
+	{
+		return $this->Rooms;
+	}
+
+	public function getFriends()
+	{
+		return $this->Friends;
+	}
+
+	public function getUserID()
+	{
+		return $this->UserID;
+	}
 }
-
-
-
-?>
