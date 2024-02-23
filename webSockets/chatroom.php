@@ -199,9 +199,20 @@ https://cdn.jsdelivr.net/npm/parsleyjs@2.9.2/src/parsley.min.css
 
 	$(document).ready(function () {
 
-		var conn = new WebSocket('wss://ws.lilithtech.dev');
+		var conn = null;
+
+		if(conn != null) new WebSocket('wss://ws.lilithtech.dev');
+		else
+		{	
+			conn.terminate();
+			new WebSocket('wss://ws.lilithtech.dev');
+		}
 		conn.onopen = function (e) {
 			console.log("Connection established!");
+		};
+
+		conn.onclose = function (e) {
+			console.log("Connection closed!");
 		};
 
 		conn.onmessage = function (e) {

@@ -1,4 +1,5 @@
 var roomName = "";
+var roomID = 0;
 
 $(".sidebar .main_list li").on('click', function () {
     $(".sidebar ul li.active").removeClass('active');
@@ -47,10 +48,11 @@ $(".chat-group").on('click', function () {
     }
     var profile_src = $(this).find($('.profile')).attr('src');
     roomName = $(this).find('.username').text();
+    roomID = $(this).find('input[name="roomID"]').val();
     $.ajax({
         url: './php/open_chat.php',
         method: 'POST',
-        data: {"RoomID": $(this).find('input[name="roomID"]').val()},
+        data: {"RoomID": roomID},
         success: function (data) {
             $.ajax({
                 url:FetchMsgs(),
@@ -134,6 +136,16 @@ function FetchMsgs()
     });
 }
 
+function MaintainSocket()
+{
+    var data = {
+        status: 1
+    };
+
+    conn.send(JSON.stringify(data));
+}
+
 $('.messages').css('max-height', "calc(80% - " +  $('.navbar').height() + "px)");
 $('.messages').css('flex', "calc(80% - " +  $('navbar').css("height") + "px)");
 setInterval(FetchMsgs, 1000);
+setInterval(MaintainSocket, 30000);

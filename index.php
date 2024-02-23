@@ -71,6 +71,7 @@ require_once('./php/include/_execute.php');
 
 
     <script src="js/swap_panel.js"></script>
+    <script src="js/ws_implement.js"></script>
     <script src="js/cloudinary_pfp.js"></script>
 </body>
 

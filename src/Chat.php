@@ -23,7 +23,15 @@ class Chat implements MessageComponentInterface {
     }
 
     public function onMessage(ConnectionInterface $from, $msg) {
-        
+        foreach ($this->clients as $client) {
+            if ($from !== $client) {
+                // The sender is not the receiver, send to each client connected
+                /*
+                Copy from existing code
+                */
+                $client->send($msg);
+            }
+        }
     }
 
     public function onClose(ConnectionInterface $conn) {
