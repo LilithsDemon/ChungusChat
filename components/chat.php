@@ -1,5 +1,5 @@
-<div class="chat-groups list-group px-2 pt-4 pd-4 d-block d-flex flex-column">
-    <div class="groups d-flex">
+<div class="chat-groups list-group px-2 pt-4 pd-4 d-block d-flex">
+    <div class="groups d-flex flex-column">
         <?php
         require_once("./components/group_block.php");
         $SQL = "SELECT `RoomName`, `ChatRooms`.`RoomID`, `RoomImg` FROM `ChatRooms` LEFT JOIN `UserToRoom` ON `UserToRoom`.`RoomID` = `ChatRooms`.`RoomID` WHERE `UserToRoom`.`UserID` = ?;";
