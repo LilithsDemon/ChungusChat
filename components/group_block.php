@@ -21,7 +21,7 @@ class ChatBlock extends Block
         ?>
             <form method="post" action="./php/open_chat" class="chat-group list-group-item list-group-item-action d-flex" aria-current="true">
                 <input type="hidden"name="roomID" value="<?php echo $this->roomID ?>">
-                <div class="d-flex h-100 w-25 justify-content-center align-items-center">
+                <div class="d-flex w-25 justify-content-center align-items-center">
                     <img class="profile rounded-circle h-100" <?php echo 'src="' . $this->img . '"'; ?> alt="Initials Profile Icon" />
                 </div>
                 <div class="w-75 justify-content-center d-flex flex-column">

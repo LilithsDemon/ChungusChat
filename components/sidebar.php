@@ -11,7 +11,7 @@
             </a>
         </li>
         <li class=""><a href="#" class="text-decoration-none px-3 py-2 d-block d-flex justify-content-between">
-                <span><i class="fa fa-users"></i> Friends</span>
+                <span><i class="fa fa-users"></i> Colleagues</span>
             </a>
         </li>
         <li class=""><a href="#" class="text-decoration-none px-3 py-2 d-block d-flex justify-content-between">

@@ -88,6 +88,22 @@ hr.h-color {
     border-color: #DC3545;
 }
 
+.chat-groups .groups
+{
+    height: 90%;
+    max-height: 90%;
+    flex: 90%;
+}
+
+.chat-groups .new_group
+{
+    height: 10%;
+    max-height: 10%;
+    flex: 10%;
+    align-items: center;
+    justify-content: center;
+}
+
 .messages::-webkit-scrollbar {
     display: none;
 }

@@ -2,8 +2,7 @@
 
 require_once("./include/_bdie.php");
 
-if (isset($_POST['username'], $_POST['password']))
-{
+if (isset($_POST['username'], $_POST['password'])) {
     require_once("./include/_connect.php");
     include("./include/_execute.php");
 
@@ -13,24 +12,23 @@ if (isset($_POST['username'], $_POST['password']))
     $username = mysqli_real_escape_string($connect, $username);
     $user_password = mysqli_real_escape_string($connect, $user_password);
 
-	$username = htmlspecialchars($username, ENT_QUOTES);
+    $username = htmlspecialchars($username, ENT_QUOTES);
     $user_password = htmlspecialchars($user_password, ENT_QUOTES);
 
     $SQL = "SELECT * FROM `Users` WHERE `Username` = ?";
 
     $result = executeCommand($SQL, 's', [$username]);
-    
-    if (mysqli_num_rows($result) === 1)
-    {
+
+    if (mysqli_num_rows($result) === 1) {
         $USER = mysqli_fetch_assoc($result);
 
         $hash = $USER['Password'];
 
-        if (password_verify($user_password, $hash))
-        {        
+        if (password_verify($user_password, $hash)) {
             session_start();
 
-            $_SESSION['auth'] = true;  
+            $_SESSION['auth'] = true;
+            $_COOKIE['auth'] = true;
 
             $_SESSION['userID'] = $USER['UserID'];
             $_SESSION['username'] = $USER['Username'];
@@ -45,4 +43,3 @@ if (isset($_POST['username'], $_POST['password']))
 }
 
 DieWithStatus("You must enter a username and password.", 400);
-?>

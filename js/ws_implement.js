@@ -28,7 +28,7 @@ else
 {	
     conn.terminate();
     conn = new WebSocket('wss://ws.lilithtech.dev');
-}
+};
 
 conn.onopen = function (e) {
     console.log("Connection established!");
