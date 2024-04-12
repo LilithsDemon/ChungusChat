@@ -19,6 +19,10 @@ if ($_SESSION['auth'] == false) {
 
 require_once('./php/get_pfp.php');
 require_once('./php/include/_execute.php');
+require_once('./php/new_group_users.php');
+require_once('./components/user_block.php');    
+
+$_SESSION['group_users'] = new GroupUsers();
 
 ?>
 
@@ -37,6 +41,8 @@ require_once('./php/include/_execute.php');
     <script src="https://upload-widget.cloudinary.com/global/all.js" type="text/javascript"></script>
     <link rel="stylesheet" href="css/main.css" />
     <script src="https://kit.fontawesome.com/a29f3f1e4b.js" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@4/dark.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
 </head>
 
 <body>
@@ -67,12 +73,14 @@ require_once('./php/include/_execute.php');
 
     <?php
     include('./components/settings.php');
+    include('./components/group_model.php');
     ?>
 
 
     <script src="js/swap_panel.js"></script>
     <script src="js/ws_implement.js"></script>
     <script src="js/cloudinary_pfp.js"></script>
+    <script src="js/group_creation.js"></script>
 </body>
 
 </html>

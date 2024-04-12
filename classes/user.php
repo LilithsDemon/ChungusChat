@@ -19,7 +19,7 @@ class ChatUser
 	{
 		$this->UserID = $UserID;
 
-        require_once('./php/include/_execute.php');
+        require_once('../php/include/_execute.php');
 
 		$this->updateData();
 	}

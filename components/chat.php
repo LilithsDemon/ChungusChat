@@ -17,8 +17,8 @@
         }
         ?>
     </div>
-    <div class="new_group d-flex">
-        <button type="button" class="btn btn-success">New Group</button>
+    <div class="new_group d-flex justify-content-center align-items-center">
+        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#groupModel">New Group</button>
     </div>
 </div>
 

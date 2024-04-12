@@ -1,9 +1,8 @@
 <?php
-require_once("_connect.php");
 
 function executeCommand($sql, $param_type, $params)
 {
-    global $connect;
+    include("_connect.php");
     $stmt = mysqli_prepare($connect, $sql);
     if ($stmt === false) {
         return false;
@@ -17,7 +16,7 @@ function executeCommand($sql, $param_type, $params)
 
 function executeCommandNoParams($sql)
 {
-    global $connect;
+    include("_connect.php");
     $stmt = mysqli_prepare($connect, $sql);
     if ($stmt === false) {
         return false;

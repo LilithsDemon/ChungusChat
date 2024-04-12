@@ -25,30 +25,4 @@ $(document).ready(function () {
             },
         });
     });
-
-    $("#signUpForm").submit(function (e) {
-        e.preventDefault();
-
-        const email = $("#email").val();
-        const password = $("#password").val();
-
-        $.ajax({
-            type: "POST",
-            url: "./php/sign_up.php",
-            data: $("#signUpForm").serialize(),
-            success: function (data) {
-                if (data == "true") window.location.href = "./";
-            },
-            error: function (data) {
-                $("input[name='txtCaptcha']").val("");
-
-                Swal.fire({
-                    title: "Registration Request Denied",
-                    text: data.responseText,
-                    icon: "error",
-                    heightAuto: false,
-                });
-            },
-        });
-    });
 });

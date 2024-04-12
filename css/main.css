@@ -100,8 +100,11 @@ hr.h-color {
     height: 10%;
     max-height: 10%;
     flex: 10%;
-    align-items: center;
-    justify-content: center;
+}
+
+.new_group_modal_users_text
+{
+    text-align: center;
 }
 
 .messages::-webkit-scrollbar {
@@ -116,6 +119,10 @@ hr.h-color {
     scrollbar-width: none;
     flex: 80%;
     max-height: 80%;
+}
+
+.group_no_users_text {
+    text-align: center;
 }
 
 .profile_top, #formSendMsg

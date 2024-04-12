@@ -14,11 +14,6 @@
                 <span><i class="fa fa-users"></i> Colleagues</span>
             </a>
         </li>
-        <li class=""><a href="#" class="text-decoration-none px-3 py-2 d-block d-flex justify-content-between">
-                <span><i class="fa fa-bell"></i> Notifications</span>
-                <span class="bg-danger rounded-pill text-white py-0 px-2">02</span>
-            </a>
-        </li>
     </ul>
     <hr class="h-color mx-4">
 
