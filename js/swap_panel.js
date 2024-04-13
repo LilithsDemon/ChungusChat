@@ -166,5 +166,5 @@ function MaintainSocket()
 
 $('.messages').css('max-height', "calc(80% - " +  $('.navbar').height() + "px)");
 $('.messages').css('flex', "calc(80% - " +  $('navbar').css("height") + "px)");
-//setInterval(FetchMsgs, 1000);
+setInterval(FetchMsgs, 1000);
 setInterval(MaintainSocket, 10000);
