@@ -20,35 +20,27 @@ class Chat implements MessageComponentInterface {
 
     public function onOpen(ConnectionInterface $conn) {
         // Store the new connection to send messages to later
-        echo 'Server Started';
-        $this->user_object = new \ChatUser($_SESSION['userID']);
-        $this->clients->attach($conn, $this->user_object);
+        $this->clients->attach($conn);
 
-        echo "New connection! ({$conn->resourceId})\n";
+        echo "New connection!\n";
     }
 
     public function onMessage(ConnectionInterface $from, $msg) {
         $data = json_decode($msg, true);
         if(isset($data['status'])) return "Connection renewed!";
-        if(isset($data['update']))
-        {
-            $this->user_object->updateData();
-            return "Data Updated!";
-        }
         foreach ($this->clients as $client) {
-            if ($data['from'] != $client->getUserID()) {
-                $user_rooms = $client->getRooms();
-                if(in_array($data['room'], $user_rooms)) $client->send($msg);
-            } else $client->send($msg);
+            if ($from !== $client) {
+                // The sender is not the receiver, send to each client connected
+                $client->send($msg);
+            }
         }
-        return 1;
     }
 
     public function onClose(ConnectionInterface $conn) {
         // The connection is closed, remove it, as we can no longer send it messages
         $this->clients->detach($conn);
 
-        echo "Connection {$conn->resourceId} has disconnected\n";
+        echo "Connection has disconnected\n";
     }
 
     public function onError(ConnectionInterface $conn, \Exception $e) {

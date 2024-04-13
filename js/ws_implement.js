@@ -1,26 +1,3 @@
-$('#chat_form').on('submit', function (event) {
-
-	event.preventDefault();
-
-	if ($('#chat_form').parsley().isValid()) {
-
-		var user_id = $('#login_user_id').val();
-
-		var message = $('#chat_message').val();
-
-		var data = {
-			userId: user_id,
-			msg: message
-		};
-
-		conn.send(JSON.stringify(data));
-
-		$('#messages_area').scrollTop($('#messages_area')[0].scrollHeight);
-
-	}
-
-});
-
 var conn = null;
 
 if(conn == null) conn = new WebSocket('wss://ws.lilithtech.dev');
@@ -41,17 +18,24 @@ conn.onclose = function (e) {
 conn.onmessage = function (e) {
     console.log(e.data);
 	var data = JSON.parse(e.data);
+
+	console.log(e.data);
 	
 	if (typeof data.status !== 'undefined') console.log("Connection reopened!");
 	if (typeof data.update !== 'undefined') console.log("user Data updated!");
 
-    $.ajax({
-        url: 'append_message.php',
-        type: 'POST',
-		data: {"RoomID": data.room, "Message": data.msg, "SenderID": data.from},
-        success: function(data)
-        {
-            $('#chatMessages').append(data);
-        }
-    });
+	if(typeof data.roomID !== 'undefined' && typeof data.msg !== 'undefined' && typeof data.userID !== 'undefined')
+	{
+		console.log("Message");
+		$.ajax({
+			url: './php/append_message.php',
+			type: 'POST',
+			data: {"RoomID": data.roomID, "Message": data.msg, "SenderID": data.userID},
+			success: function(data)
+			{
+				console.log("Message Recieved");
+				$('#chatMessages').append(data);
+			}
+		});
+	}
 };

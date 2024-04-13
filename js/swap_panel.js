@@ -1,6 +1,12 @@
 var roomName = "";
 var roomID = 0;
 
+function SetUserID(userID)
+{
+    Cookies.set('userID', userID , { expires:86400, path: '/' }); // 86400 seconds in day
+    console.log(Cookies.get('userID'));
+}
+
 $(".sidebar .main_list li").on('click', function () {
     $(".sidebar ul li.active").removeClass('active');
     $(this).addClass('active');
@@ -109,7 +115,20 @@ $('#formSendMsg').submit(function (e)
         method: 'POST',
         data: $('#formSendMsg').serialize(),
         success: function (data) {
+            console.log(Cookies.get('userID'));
+            var userID = Cookies.get('userID');
+            var message = $('textarea').val();
+    
+            var data = {
+                roomID, roomID,
+                userID: userID,
+                msg: message
+            };
+    
+            conn.send(JSON.stringify(data));
+    
             $('textarea').val('');
+
             $.ajax({
                 url: FetchMsgs(),
                 success: function(){
@@ -148,4 +167,4 @@ function MaintainSocket()
 $('.messages').css('max-height', "calc(80% - " +  $('.navbar').height() + "px)");
 $('.messages').css('flex', "calc(80% - " +  $('navbar').css("height") + "px)");
 //setInterval(FetchMsgs, 1000);
-setInterval(MaintainSocket, 30000);
+setInterval(MaintainSocket, 10000);

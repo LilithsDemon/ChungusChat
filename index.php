@@ -43,6 +43,8 @@ $_SESSION['group_users'] = new GroupUsers();
     <script src="https://kit.fontawesome.com/a29f3f1e4b.js" crossorigin="anonymous"></script>
     <link href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@4/dark.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js"></script>
+
 </head>
 
 <body>
@@ -77,8 +79,12 @@ $_SESSION['group_users'] = new GroupUsers();
     ?>
 
 
-    <script src="js/swap_panel.js"></script>
     <script src="js/ws_implement.js"></script>
+    <script src="js/swap_panel.js"></script>
+    <?php 
+    $user_id = $_SESSION['userID'];
+    echo "<script> SetUserID($user_id) </script>";
+    ?>
     <script src="js/cloudinary_pfp.js"></script>
     <script src="js/group_creation.js"></script>
 </body>

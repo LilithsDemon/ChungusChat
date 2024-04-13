@@ -1,7 +1,5 @@
 <?php 
-    require_once "./include/_connect.php";
-    require_once "./include/_execute.php";
-    require_once('../components/message.php');
+    require_once('../components/new_message.php');
 
     session_start();
 
@@ -11,10 +9,10 @@
     {
         if($_POST['SenderID'] == $_SESSION['userID'])
         {
-            $message = new SelfNewMessage($_POST['Message'], $_POST['SenderID'], $_POST['RoomID']);
+            $message = new NewMessage($_POST['Message'], $_POST['SenderID'], $_POST['RoomID']);
             $message->getMessage();
         } else {
-            $message = new NewMessage($_POST['Message'], $_POST['SenderID'], $_POST['RoomID']);
+            $message = new SelfNewMessage($_POST['Message'], $_POST['SenderID'], $_POST['RoomID']);
             $message->getMessage();
         }
     }
