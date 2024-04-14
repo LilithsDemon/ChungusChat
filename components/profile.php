@@ -34,15 +34,24 @@ $DATA = mysqli_fetch_assoc($result);
             <?php echo $DATA['About'] ?>
         </p>
     </div>
+    <div class="social_section pt-4 d-flex gap-4 flex-column">
     <?php
     if($DATA['UserID'] == $_SESSION['userID'])
     {
         ?>
-    <div class="social_section pt-2 d-flex flex-column">
-        <button id="pfp_upload_widget" class="cloudinary-button">Change Profile Image</button>
-    </div>
-    <?php
+        <button id="pfp_upload_widget" class="btn btn-primary">Change Profile Image</button>
+        <button id="" class="btn btn-primary">Change Other Profile Data</button>
+        <?php
+    }else
+    {
+        if($_SESSION['admin'] == 1)
+        {
+            ?>
+            <button class="btn btn-danger">Delete User</button>
+            <?php
+        }
     }
     ?>
+    </div>
 </div>
 <?php

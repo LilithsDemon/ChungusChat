@@ -33,14 +33,12 @@
         <?php
         require_once("./components/user_block.php");
         $SQL = "SELECT * FROM `Users` WHERE `UserID` != ?;";
-
         $result = executeCommand($SQL, 'i', [$_SESSION['userID']]);
 
         if (mysqli_num_rows($result) > 0) {
-            require_once("./php/last_message.php");
             while ($DATA = mysqli_fetch_assoc($result)) {
-                $group_block = new ChatBlock($DATA['RoomImg'], $DATA['RoomName'], getChatMessage($DATA['RoomID']), $DATA['RoomID']);
-                $group_block->outputBlock();
+                $user_block = new UserBlock($DATA['ImgSrc'], $DATA['Username'], $DATA['FirstName'], $DATA['LastName'], $DATA['UserID']);
+                $user_block->outputBlock();
             }
         } else {
             echo "There are no other users";
