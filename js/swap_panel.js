@@ -164,6 +164,31 @@ function MaintainSocket()
     conn.send(JSON.stringify(data));
 }
 
+function SetProfile(username)
+{
+    $.ajax({   
+        url: './components/profile.php',
+        type: 'POST',
+        data: {Username: username},
+        success: function(data)
+        {
+            $.ajax({
+                url: SetProfileHTML(data),
+                success: function(){
+                    AddButton();
+                }
+            });
+        }
+    });
+}
+
+function SetProfileHTML(data)
+{
+    $('#offCanvasProfile').html(data);
+    var myModal = new bootstrap.Modal(document.getElementById('#offCanvasProfile'));
+    myModal.show();
+}
+
 $('.messages').css('max-height', "calc(80% - " +  $('.navbar').height() + "px)");
 $('.messages').css('flex', "calc(80% - " +  $('navbar').css("height") + "px)");
 setInterval(FetchMsgs, 1000);

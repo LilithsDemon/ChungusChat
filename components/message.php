@@ -20,8 +20,9 @@ class Message
                 <?php
                 $img = getPfpLinkByName($this->sender);
                 ?>
+                <a data-bs-toggle="offcanvas" href="#offCanvasProfile" onclick="SetProfile(<?php echo ("'" . $this->sender . "'") ?>)">
                 <img class="profile rounded-circle" style="height: 32px;" src="<?php echo $img ?>">
-                <?php echo $this->sender . " | " . $this->time ?>
+                <?php echo $this->sender . "</a> | " . $this->time ?>
             </div>
             <div class="card-body">
                 <?php echo $this->message ?>
@@ -58,8 +59,9 @@ class SelfMessage extends Message
                 <?php
                 $img = getPfpLinkByName($this->sender);
                 ?>
+                <a data-bs-toggle="offcanvas" href="#offCanvasProfile" onclick="SetProfile(<?php echo ("'" . $this->sender . "'") ?>)">
                 <img class="profile rounded-circle" style="height: 32px;" src="<?php echo $img ?>">
-                <?php echo $this->sender . " | " . $this->time ?>
+                <?php echo $this->sender . "</a> | " . $this->time ?>
             </div>
             <div class="card-body">
                 <?php echo $this->message ?>

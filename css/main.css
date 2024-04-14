@@ -44,7 +44,6 @@ hr.h-color {
     padding: 10px;
     z-index: 0;
     max-height: 80px;
-    overflow: hidden;
 }
 
 .list-group-item.active,

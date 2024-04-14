@@ -129,6 +129,7 @@ $(document).ready(function () {
                         $('#current_group_users').html(data);
                     }
                 });
+                conn.send(JSON.stringify({groupName: group_name}));
             },
             error: function (data) {
                 Swal.fire({

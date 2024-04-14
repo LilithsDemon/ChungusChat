@@ -35,6 +35,8 @@ if (isset($_POST['username'], $_POST['password'])) {
             $_SESSION['user_first_name'] = $USER['FirstName'];
             $_SESSION['user_last_name'] = $USER['LastName'];
             $_SESSION['user_about'] = $USER['About'];
+            $_SESSION['creator'] = $USER['Creator'];
+            $_SESSION['admin'] = $USER['Admin'];
 
             DieWithStatus("true", 200);
         }

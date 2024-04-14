@@ -21,7 +21,10 @@
         <li class=""><a id="settings_open" data-bs-toggle="modal" data-bs-target="#settings" href="#settings"
                 class="text-decoration-none px-3 py-2 d-block"><i class="fa fa-bars"></i>
                 Settings</a></li>
-        <li class="profile_open"><a data-bs-toggle="offcanvas" href="#offCanvasProfile" role="button"
+                <?php
+                    $user = $_SESSION['username'];
+                ?>
+        <li class="profile_open"><a data-bs-toggle="offcanvas" href="#offCanvasProfile" onclick="SetProfile(<?php echo ("'" . $user . "'") ?>) " role="button"
                 class="text-decoration-none px-3 py-2 d-block"><i class="fa fa-user"></i>
                 Profile</a></li>
     </ul>

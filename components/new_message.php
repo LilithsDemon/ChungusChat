@@ -36,8 +36,9 @@ class NewMessage
                 <?php
                 $img = $this->getPfpLink($this->sender);
                 ?>
+                <a data-bs-toggle="offcanvas" href="#offCanvasProfile" onclick="SetProfile(<?php echo ("'" . $this->sender . "'") ?>)">
                 <img class="profile rounded-circle" style="height: 32px;" src="<?php echo $img ?>">
-                <?php echo $this->sender_name . " | " . date("Y-m-d h:i:s") ?>
+                <?php echo $this->sender_name . "</a> | " . date("Y-m-d h:i:s") ?>
             </div>
             <div class="card-body">
                 <?php echo $this->message ?>
@@ -66,8 +67,9 @@ class SelfNewMessage extends NewMessage
                 <?php
                 $img = $this->getPfpLink($this->sender);
                 ?>
+                <a data-bs-toggle="offcanvas" href="#offCanvasProfile" onclick="SetProfile(<?php echo ("'" . $this->sender . "'") ?>)">
                 <img class="profile rounded-circle" style="height: 32px;" src="<?php echo $img ?>">
-                <?php echo $this->sender . " | " . date("Y-m-d h:i:s") ?>
+                <?php echo $this->sender . "</a> | " . date("Y-m-d h:i:s") ?>
             </div>
             <div class="card-body">
                 <?php echo $this->message ?>

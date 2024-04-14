@@ -19,14 +19,24 @@ conn.onmessage = function (e) {
     console.log(e.data);
 	var data = JSON.parse(e.data);
 
-	console.log(e.data);
-	
-	if (typeof data.status !== 'undefined') console.log("Connection reopened!");
-	if (typeof data.update !== 'undefined') console.log("user Data updated!");
+	if(typeof data.groupName !== 'undefined' && data.groupName !== "")
+	{
+		$.ajax({
+			url: './php/append_new_group.php',
+			type: 'POST',
+			data: {"Name": data.groupName},
+			success: function(data)
+			{
+				$('.groups').append(data);
+			}
+		});
+	}
 
 	if(typeof data.roomID !== 'undefined' && typeof data.msg !== 'undefined' && typeof data.userID !== 'undefined')
 	{
 		console.log("Message");
+		$('#' + data.roomID).html(data.msg); 
+		if(data.userID == Cookies.get('userID')) return null;
 		$.ajax({
 			url: './php/append_message.php',
 			type: 'POST',

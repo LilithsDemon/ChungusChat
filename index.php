@@ -67,24 +67,18 @@ $_SESSION['group_users'] = new GroupUsers();
         include('./components/toast.php');
         ?>
 
-        <?php
-            include('./components/profile.php');
-            selfProfile();
-        ?>
+            <div class="offcanvas offcanvas-end" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1" id="offCanvasProfile" aria-labelledby="offcanvasRightLabel">
+            </div>
     </div>
 
     <?php
     include('./components/settings.php');
-    include('./components/group_model.php');
+    if($_SESSION['creator'] == 1 || $_SESSION['admin'] == 1) include('./components/group_model.php');
     ?>
 
 
     <script src="js/ws_implement.js"></script>
     <script src="js/swap_panel.js"></script>
-    <?php 
-    $user_id = $_SESSION['userID'];
-    echo "<script> SetUserID($user_id) </script>";
-    ?>
     <script src="js/cloudinary_pfp.js"></script>
     <script src="js/group_creation.js"></script>
 </body>

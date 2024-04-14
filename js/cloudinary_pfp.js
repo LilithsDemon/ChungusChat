@@ -30,6 +30,9 @@
         }
     )
     
-    document.getElementById("pfp_upload_widget").addEventListener("click", function(){
-        myWidget.open();
-        }, false);
+    function AddButton()
+    {
+        document.getElementById("pfp_upload_widget").addEventListener("click", function(){
+            myWidget.open();
+            }, false);
+    }
