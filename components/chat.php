@@ -28,7 +28,7 @@
     } ?>
 </div>
 
-<div class="collegues overflow-auto list-group px-2 pt-4 pd-4 d-flex d-none">
+<div class="collegues overflow-auto list-group px-2 pt-4 pd-4 d-block d-flex d-none">
     <div class="groups overflow-auto d-flex flex-column">
         <?php
         require_once("./components/user_block.php");
@@ -37,7 +37,7 @@
 
         if (mysqli_num_rows($result) > 0) {
             while ($DATA = mysqli_fetch_assoc($result)) {
-                $user_block = new UserBlock($DATA['ImgSrc'], $DATA['Username'], $DATA['FirstName'], $DATA['LastName'], $DATA['UserID']);
+                $user_block = new UserBlock($DATA['ImgSrc'], $DATA['Username'], $DATA['FirstName'] . " " . $DATA['LastName']);
                 $user_block->outputBlock();
             }
         } else {
@@ -47,7 +47,7 @@
     </div>
     <?php if($_SESSION['creator'] == 1 || $_SESSION['admin'] == 1) { ?>
     <div class="new_group d-flex justify-content-center align-items-center">
-        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#groupModel">New Group</button>
+        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#groupModel">Create User</button>
     </div>
     <?php }
     else
@@ -81,7 +81,7 @@
         </ul>
     </div>
     <form class="d-flex align-items-center justify-content-center w-100" id="formSendMsg">
-        <textarea class="p-2 h-100 mt-4" type="text" name="txtInput" placeholder="Enter your message..."></textarea>
+        <input id="message_input"class="p-2 h-100 mt-4" type="text" name="txtInput" placeholder="Enter your message..."></input>
         <button class="p-2 h-100 mt-4" type="submit">Send!</button>
     </form>
 

@@ -14,7 +14,7 @@ include("./php/include/_connect.php");
 if (!isset($_COOKIE['auth'])) setcookie("auth", false, [
   'expires' => time() + 86400,
   'path' => '/',
-  'domain' => 'domain.example',
+  'domain' => 'chunguschat.lilithtech.dev',
   'secure' => true,
   'httponly' => true,
   'samesite' => 'None',
@@ -30,17 +30,44 @@ if (isset($_GET['username'])) header("Location: ./index.php");
 <html>
 
 <head>
-  <title>Admin Login</title>
+  <title>Chunguschat | Login</title>
   <link rel="stylesheet" href="css/main.css">
   <link rel="stylesheet" href="css/login.css">
   <script src="https://code.jquery.com/jquery-3.3.1.min.js" type="text/javascript"></script>
-
-
   <link href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@4/dark.css" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+  <script src="https://www.google.com/recaptcha/api.js"></script>
 </head>
 
 <body>
+<script>
+        function onSubmit(token) {
+        const username = $("#username").val();
+        const password = $("#password").val();
+
+        $.ajax({
+            type: "POST",
+            url: "./php/log_in.php",
+            data: $("#login_form").serialize(),
+            success: function (data) {
+                console.log(data);
+                if (data == "true") window.location.href = "../";
+            },
+            error: function (data) {
+                $("#password").val = "";
+                Swal.fire({
+                    title: "Authentication Request Denied",
+                    text: data.responseText,
+                    icon: "error",
+                    heightAuto: false,
+                    color: "white",
+                });
+            },
+        });
+      }
+  </script>
   <div class="center">
     <h1>Login</h1>
     <form id="login_form" action="/php/log_in.php" method="post">
@@ -54,7 +81,10 @@ if (isset($_GET['username'])) header("Location: ./index.php");
         <span></span>
         <label>Password</label>
       </div>
-      <input type="submit" value="Login">
+      <button class="g-recaptcha btn btn-primary" 
+        data-sitekey="6Ld-VL4pAAAAAM6ud31pqNjQm_kpykeu6DZ49XTD" 
+        data-callback='onSubmit' 
+        data-action='submit'>Login!</button>
     </form>
   </div>
   <script src="./js/login.js"></script>

@@ -5,12 +5,12 @@
     </div>
 
     <ul class="main_list list-unstyled px-2">
-        <li class="active"><a href="#" class="text-decoration-none px-3 py-2 d-block d-flex justify-content-between">
+        <li class="active"><a href="#" class="chat-button text-decoration-none px-3 py-2 d-block d-flex justify-content-between">
                 <span><i class="fa fa-comment"></i> Chats</span>
                 <span class="bg-danger rounded-pill text-white py-0 px-2">02</span>
             </a>
         </li>
-        <li class=""><a href="#" class="text-decoration-none px-3 py-2 d-block d-flex justify-content-between">
+        <li class=""><a href="#" class="collegue-button text-decoration-none px-3 py-2 d-block d-flex justify-content-between">
                 <span><i class="fa fa-users"></i> Colleagues</span>
             </a>
         </li>

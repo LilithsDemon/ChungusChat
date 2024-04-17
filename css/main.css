@@ -87,14 +87,14 @@ hr.h-color {
     border-color: #DC3545;
 }
 
-.chat-groups .groups
+.chat-groups .groups, .collegues .groups
 {
     height: 90%;
     max-height: 90%;
     flex: 90%;
 }
 
-.chat-groups .new_group
+.chat-groups .new_group, .collegues .new_group
 {
     height: 10%;
     max-height: 10%;

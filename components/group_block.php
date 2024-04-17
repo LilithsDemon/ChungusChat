@@ -42,30 +42,27 @@ class ChatBlock extends Block
 
 class UserBlock extends Block
 {
-    private $last_message;
-    private $time;
+    private $username;
 
     public function outputBlock()
     {
         ?>
-            <button class="chat-group list-group-item list-group-item-action d-flex" aria-current="true">
-                <div class="d-flex h-100 w-25 justify-content-center align-items-center">
-                    <img class="profile rounded-circle h-100" <?php echo 'src="' . $this->img . '"'; ?> alt="Initials Profile Icon" />
-                </div>
-                <div class="w-75 justify-content-center d-flex flex-column">
-                    <div class="d-flex w-100 justify-content-between">
-                        <h5 class="mb-1 username"><?php echo $this->title ?></h5>
-                        <small><?php echo $this->time ?></small>
+            <a data-bs-toggle="offcanvas" href="#offCanvasProfile" class="list-group-item list-group-item-action d-flex" onclick="SetProfile(<?php echo ("'" . $this->username . "'") ?>)">
+                    <div class="d-flex h-100 w-25 justify-content-center align-items-center">
+                        <img class="profile rounded-circle h-100" <?php echo 'src="' . $this->img . '"'; ?> alt="Initials Profile Icon" />
                     </div>
-                    <p class="mb-1 text-truncate"><?php echo $this->last_message ?></p>
-                </div>
-            </button>
+                    <div class="w-75 justify-content-center d-flex flex-column">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h5 class="mb-1 username"><?php echo $this->title ?></h5>
+                        </div>
+                        <p class="mb-1 text-truncate"><?php echo $this->username ?></p>
+                    </div>
+            </a>
         <?php
     }
 
-    public function __construct($img, $title, $last_message, $time) {
-        parent::__construct($img, $title);
-        $this->last_message = $last_message; 
-        $this->time = $time;
+    public function __construct($img, $username, $name) {
+        parent::__construct($img, $name);
+        $this->username = $username;
     }
 }

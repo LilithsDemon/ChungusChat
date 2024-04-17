@@ -76,8 +76,6 @@ $(".chat-group").on('click', function () {
     });
 });
 
-
-
 $(".small_to_chat").on('click', function () {
     if($(document).width() < 1100)
     {
@@ -117,7 +115,7 @@ $('#formSendMsg').submit(function (e)
         success: function (data) {
             console.log(Cookies.get('userID'));
             var userID = Cookies.get('userID');
-            var message = $('textarea').val();
+            var message = $('#message_input').val();
     
             var data = {
                 roomID, roomID,
@@ -127,7 +125,7 @@ $('#formSendMsg').submit(function (e)
     
             conn.send(JSON.stringify(data));
     
-            $('textarea').val('');
+            $('#message_input').val('');
 
             $.ajax({
                 url: FetchMsgs(),
@@ -188,6 +186,16 @@ function SetProfileHTML(data)
     var myModal = new bootstrap.Modal(document.getElementById('#offCanvasProfile'));
     myModal.show();
 }
+
+$('.chat-button').on('click', function(){
+    $('.chat-groups').removeClass('d-none');
+    $('.collegues').addClass('d-none');
+});
+
+$('.collegue-button').on('click', function(){
+    $('.collegues').removeClass('d-none');
+    $('.chat-groups').addClass('d-none');
+});
 
 $('.messages').css('max-height', "calc(80% - " +  $('.navbar').height() + "px)");
 $('.messages').css('flex', "calc(80% - " +  $('navbar').css("height") + "px)");
