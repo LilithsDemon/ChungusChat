@@ -11,6 +11,15 @@
     $group_name = mysqli_real_escape_string($connect, $group_name);
     $group_name = htmlspecialchars($group_name, ENT_QUOTES);
 
+    if($_SESSION['Admin'] !== 1)
+    {
+        $SQL = "SELECT COUNT(`RoomID`) AS `COUNT` FROM `ChatRooms` WHERE `CreatedBy` = ?";
+        $result = executeCommand($SQL, 'i', [$_SESSION['userID']]);
+        $DATA = mysqli_fetch_assoc($result);
+
+        if($DATA['COUNT'] >= $_SESSION['maxRooms']) DieWithStatus("You have reached the maximum amount of groups you can create", 401);
+    }
+
     $SQL = "SELECT `RoomName` FROM `ChatRooms` WHERE `RoomName` = ?";
     $result = executeCommand($SQL, 's', [$group_name]);
 

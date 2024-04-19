@@ -1,6 +1,9 @@
 var roomName = "";
 var roomID = 0;
 
+const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+
 function SetUserID(userID)
 {
     Cookies.set('userID', userID , { expires:86400, path: '/' }); // 86400 seconds in day

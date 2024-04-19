@@ -37,6 +37,7 @@ if (isset($_POST['username'], $_POST['password'])) {
             $_SESSION['user_about'] = $USER['About'];
             $_SESSION['creator'] = $USER['Creator'];
             $_SESSION['admin'] = $USER['Admin'];
+            $_SESSION['maxRooms'] = $USER['MaxRooms'];
 
             DieWithStatus("true", 200);
         }

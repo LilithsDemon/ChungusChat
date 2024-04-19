@@ -28,6 +28,12 @@ $DATA = mysqli_fetch_assoc($result);
             <?php echo $DATA['FirstName'] . " " . $DATA['LastName'] ?>
         </h3>
     </div>
+    <div class="role_secrion pt-2 d-flex flex-column">
+        <h4 class="profile_section_title">Role</h4>
+        <p>
+            <?php echo $DATA['Role'] ?>
+        </p>
+    </div>
     <div class="about_section pt-2 d-flex flex-column">
         <h4 class="profile_section_title">About</h4>
         <p>
@@ -40,7 +46,7 @@ $DATA = mysqli_fetch_assoc($result);
     {
         ?>
         <button id="pfp_upload_widget" class="btn btn-primary">Change Profile Image</button>
-        <button id="" class="btn btn-primary">Change Other Profile Data</button>
+        <button id="" class="btn btn-primary">Change your About section</button>
         <?php
     }else
     {

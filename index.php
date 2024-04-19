@@ -66,7 +66,6 @@ $_SESSION['group_users'] = new GroupUsers();
         <?php
         include('./components/toast.php');
         ?>
-
             <div class="offcanvas offcanvas-end" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1" id="offCanvasProfile" aria-labelledby="offcanvasRightLabel">
             </div>
     </div>
@@ -74,13 +73,18 @@ $_SESSION['group_users'] = new GroupUsers();
     <?php
     include('./components/settings.php');
     if($_SESSION['creator'] == 1 || $_SESSION['admin'] == 1) include('./components/group_model.php');
+    if($_SESSION['admin'] == 1) 
+    {
+        include('./components/new_user_model.php');
+        include('./components/remove_user_model.php');
+    }
     ?>
-
 
     <script src="js/ws_implement.js"></script>
     <script src="js/swap_panel.js"></script>
     <script src="js/cloudinary_pfp.js"></script>
     <script src="js/group_creation.js"></script>
+    <script src="js/user_creation.js"></script>
 </body>
 
 </html>

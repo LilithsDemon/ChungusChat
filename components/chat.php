@@ -47,7 +47,7 @@
     </div>
     <?php if($_SESSION['creator'] == 1 || $_SESSION['admin'] == 1) { ?>
     <div class="new_group d-flex justify-content-center align-items-center">
-        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#groupModel">Create User</button>
+        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#new_user">Create User</button>
     </div>
     <?php }
     else
