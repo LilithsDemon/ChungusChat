@@ -17,8 +17,6 @@ if ($_SESSION['auth'] == false) {
     header("Location: login.php");
 }
 
-require_once('./php/get_pfp.php');
-require_once('./php/include/_execute.php');
 require_once('./php/new_group_users.php');
 require_once('./components/user_block.php');    
 

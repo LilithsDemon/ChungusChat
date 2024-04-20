@@ -1,8 +1,8 @@
 <?php
 
-require_once ("./php/include/_connect.php");
-require_once ("./php/include/_execute.php");
-require_once ("./php/get_pfp.php");
+require_once ("../php/include/_connect.php");
+require_once ("../php/include/_execute.php");
+require_once ("../php/get_pfp.php");
 
 class Message
 {

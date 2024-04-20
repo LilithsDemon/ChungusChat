@@ -1,6 +1,6 @@
 <?php
-require_once("./php/include/_connect.php");
-require_once("./php/include/_execute.php");
+require_once("../php/include/_connect.php");
+require_once("../php/include/_execute.php");
 
 // Simple functions to get the profile picture of a user by either their userID or name
 // This is used so that it doesn't have to be repeated in multiple files
