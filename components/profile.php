@@ -10,6 +10,8 @@ $result = executeCommand($SQL, 's', [$_POST['Username']]);
 if(mysqli_num_rows($result) == 0) die("User not found!");
 $DATA = mysqli_fetch_assoc($result);
 
+$_SESSION['currentProfile'] = $DATA['UserID'];
+
 ?>
 <div class="offcanvas-header">
     <h5 class="offcanvas-title" id="offcanvasRightLabel">Profile</h5>
@@ -53,7 +55,7 @@ $DATA = mysqli_fetch_assoc($result);
         if($_SESSION['admin'] == 1)
         {
             ?>
-            <button class="btn btn-danger">Delete User</button>
+            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#remove_user_model">Delete User</button>
             <?php
         }
     }

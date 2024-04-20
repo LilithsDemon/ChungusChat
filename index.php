@@ -72,19 +72,31 @@ $_SESSION['group_users'] = new GroupUsers();
 
     <?php
     include('./components/settings.php');
-    if($_SESSION['creator'] == 1 || $_SESSION['admin'] == 1) include('./components/group_model.php');
+    // For these models the users need the right privledges
+    // By doing this it ensures that someone with the wrong privledges cannot use them
+    // As well as that it allows for a faster load if they do not have the right privledges as they do not need to load them.
+    if($_SESSION['creator'] == 1 || $_SESSION['admin'] == 1) 
+    {
+        include('./components/group_model.php');
+        ?>
+            <script src="js/group_creation.js"></script>
+        <?php
+    }
     if($_SESSION['admin'] == 1) 
     {
         include('./components/new_user_model.php');
         include('./components/remove_user_model.php');
+        ?>
+        <script src="js/user_creation.js"></script>
+        <script src="js/remove_user.js"></script>
+        <?php
     }
     ?>
 
     <script src="js/ws_implement.js"></script>
-    <script src="js/swap_panel.js"></script>
+    <script src="js/main.js"></script>
     <script src="js/cloudinary_pfp.js"></script>
-    <script src="js/group_creation.js"></script>
-    <script src="js/user_creation.js"></script>
+
 </body>
 
 </html>

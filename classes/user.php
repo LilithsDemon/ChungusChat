@@ -1,6 +1,8 @@
 <?php
 
-//ChatUser.php
+// This is a class used by the server to generate clients
+
+// The user class is used to store information about a user, such as their rooms and friends by getting data from the database
 
 class ChatUser
 {

@@ -2,18 +2,14 @@
 
 require_once("./include/_bdie.php");
 
+// This runs after log in, it sets up all the variables that are needed for the user
+
 if (isset($_POST['username'], $_POST['password'])) {
     require_once("./include/_connect.php");
     include("./include/_execute.php");
 
     $username = $_POST['username'];
     $user_password = $_POST['password'];
-
-    $username = mysqli_real_escape_string($connect, $username);
-    $user_password = mysqli_real_escape_string($connect, $user_password);
-
-    $username = htmlspecialchars($username, ENT_QUOTES);
-    $user_password = htmlspecialchars($user_password, ENT_QUOTES);
 
     $SQL = "SELECT * FROM `Users` WHERE `Username` = ?";
 

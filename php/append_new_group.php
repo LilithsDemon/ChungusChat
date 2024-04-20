@@ -5,6 +5,7 @@
 
     session_start();
 
+    // Checks to make sure all data is sent in post properly
     if(!isset($_POST['Name'])) die("No Data recieved!");
 
     $SQL = "SELECT * FROM `ChatRooms` WHERE `RoomName` = ?";
@@ -13,7 +14,7 @@
 
     $SQL = "SELECT `LinkID` FROM `UserToRoom` WHERE `RoomID` = ? AND `UserID` = ?";
     $result = executeCommand($SQL, 'ii', [$DATA['RoomID'], $_SESSION['userID']]);
-    if(mysqli_num_rows($result) == 0) die("You are not a member of this group!");
+    if(mysqli_num_rows($result) == 0) die("You are not a member of this group!"); // Only appens group if they are in the group
 
     $group = new ChatBlock($DATA['RoomImg'], $DATA['RoomName'], "No Message yet", $DATA['RoomID']);
-    $group->outputBlock();
+    $group->outputBlock(); // Outputs the group block

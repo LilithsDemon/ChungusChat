@@ -80,9 +80,9 @@
 
         </ul>
     </div>
-    <form class="d-flex align-items-center justify-content-center w-100" id="formSendMsg">
-        <input id="message_input"class="p-2 h-100 mt-4" type="text" name="txtInput" placeholder="Enter your message..."></input>
-        <button class="p-2 h-100 mt-4" type="submit">Send!</button>
+    <form class="d-flex align-items-center mb-2 pb-2 justify-content-center w-100" id="formSendMsg">
+        <input id="message_input"class="p-2 w-100 h-100 mt-4 form-control" type="text" name="txtInput" placeholder="Enter your message..."></input>
+        <button class="p-2 h-100 mt-4 btn btn-primary" type="submit">Send!</button>
     </form>
 
 </div>

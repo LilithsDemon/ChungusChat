@@ -41,13 +41,10 @@ class Message
 
 class SelfMessage extends Message
 {
-
-    private $seen;
     private $messageID;
-    public function __construct($message, $time, $sender, $seen, $messageID)
+    public function __construct($message, $time, $sender, $messageID)
     {
         parent::__construct($message, $time, $sender);
-        $this->seen = $seen;
         $this->messageID = $messageID;
     }
 

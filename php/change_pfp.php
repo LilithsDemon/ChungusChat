@@ -1,6 +1,8 @@
 <?php
 
-if(!isset($_POST['link'])) die("No message recieved!");
+// Makes sure image link is sent in post
+if(!isset($_POST['link'])) die("No messa
+ge recieved!");
 
 session_start();
 

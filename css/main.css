@@ -71,11 +71,6 @@ hr.h-color {
     margin: 5% 0;
 }
 
-.hide
-{
-    display: none;
-}
-
 .full_page_content
 {
     height: calc(100vh - 16px);

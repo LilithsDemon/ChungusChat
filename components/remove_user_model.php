@@ -8,10 +8,10 @@
             <div class="modal-body d-flex justify-content-center align-items-center">
                 <p>Are you sure you want to delete this user</p>
             </div>
-        </div>
-        <div class="modal-footer">
+            <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-            <button type="submit" id="close_new_group_model" class="btn btn-primary">Create Group</button>
+            <button type="submit" id="close_remove_user_model" class="btn btn-danger">Delete User</button>
+        </div>
         </div>
     </div>
 </div>
