@@ -1,8 +1,8 @@
 <?php
 if(!isset($_POST['txtInput'])) die("No message recieved!");
 
-require_once("./php/include/_connect.php");
-include_once("./php/include/_execute.php");
+require_once("./include/_connect.php");
+include_once("./include/_execute.php");
 
 session_start();
 
@@ -11,7 +11,7 @@ if(isset($_SESSION['userID']) and isset($_SESSION['RoomID']))
 
 $value = $_POST['txtInput'];
 
-$SQL = "INSERT INTO `Messages`(`MessageID`, `Message`, `TIMESTAMP`,`SenderID`, `RoomID`, `Seen`) VALUES (Null,?,Null,?, ?, 0);";
+$SQL = "INSERT INTO `Messages`(`MessageID`, `Message`, `TIMESTAMP`,`SenderID`, `RoomID`) VALUES (Null,?,Null,?, ?);";
 
 $result = executeCommand($SQL, 'sii', [$value, $_SESSION['userID'], $_SESSION['RoomID']]);
 

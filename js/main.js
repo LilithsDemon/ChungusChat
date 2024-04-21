@@ -54,11 +54,7 @@ $(".chat-group").on('click', function () {
     if($(document).width() < 1100)
     {
         $('.chat-groups').addClass('d-none');
-        $('.chat-groups').removeClass('d-flex');
-        $('.chat-groups').removeClass('d-block');
         $('.chat').removeClass('d-none');
-        $('.chat').addClass('d-flex');
-        $('.chat').addClass('d-block');
     }
     var profile_src = $(this).find($('.profile')).attr('src');
     roomName = $(this).find('.username').text();
@@ -88,11 +84,7 @@ $(".small_to_chat").on('click', function () {
     if($(document).width() < 1100)
     {
         $('.chat-groups').removeClass('d-none');
-        $('.chat-groups').addClass('d-flex');
-        $('.chat-groups').addClass('d-block');
         $('.chat').addClass('d-none');
-        $('.chat').removeClass('d-flex');
-        $('.chat').removeClass('d-block');
     }
 });
 
@@ -101,11 +93,7 @@ $(window).resize(function() {
     if($(document).width() > 1100)
     {
         $('.chat').removeClass('d-none');
-        $('.chat').addClass('d-flex');
-        $('.chat').addClass('d-block');
         $('.chat-groups').removeClass('d-none');
-        $('.chat-groups').addClass('d-flex');
-        $('.chat-groups').addClass('d-block');
     } 
     $('.messages').css('max-height', "calc(80% - " +  $('.navbar').height() + "px)");
     $('.messages').css('flex', "calc(80% - " +  $('.navbar').css("height") + "px)");
